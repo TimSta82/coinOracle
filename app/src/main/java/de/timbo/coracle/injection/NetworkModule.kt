@@ -1,7 +1,7 @@
 package de.timbo.coracle.injection
 
 import de.timbo.coracle.BuildConfig
-import de.timbo.coracle.api.ApiInterface
+import de.timbo.coracle.api.CoinCapApiInterface
 import de.timbo.coracle.api.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -36,4 +36,4 @@ private fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     .client(okHttpClient)
     .build()
-    .create(ApiInterface::class.java)
+    .create(CoinCapApiInterface::class.java)

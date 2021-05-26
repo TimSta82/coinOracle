@@ -9,4 +9,6 @@
     <color name="settings_background">#f8ac12</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#2f2f2f</color>
 </resources>

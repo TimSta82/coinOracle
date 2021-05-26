@@ -20,7 +20,7 @@ class AssetsAdapter(private val assets: List<Asset>) : RecyclerView.Adapter<Asse
 
     inner class AssetsViewHolder(private val binding: ListItemAssetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(asset: Asset) {
-            binding.itemAssetTitleTv.text = asset.name
+            binding.itemAssetTitleTv.text = "(${asset.symbol}) - ${asset.name} - ${asset.priceUsd}"
         }
     }
 }
