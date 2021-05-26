@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/nav_graph"
-        app:startDestination="@id/mainFragment"
-        tools:ignore="UnusedNavigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/assetsFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
-            android:id="@+id/mainFragment"
-            android:name="de.timbo.coracle.ui.main.MainFragment"
-            android:label="MainFragment"
-            tools:layout="@layout/fragment_main"/>
+        android:id="@+id/assetsFragment"
+        android:name="de.timbo.coracle.ui.assets.AssetsFragment"
+        android:label="fragment_assets"
+        tools:layout="@layout/fragment_assets" />
+    <fragment
+        android:id="@+id/correlationFragment"
+        android:name="de.timbo.coracle.ui.correlation.CorrelationFragment"
+        android:label="fragment_correlation"
+        tools:layout="@layout/fragment_correlation" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="de.timbo.coracle.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>
