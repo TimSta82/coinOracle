@@ -8,7 +8,7 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "de.bornholdtlee.defaultprojectkotlin"
+        applicationId "de.timbo.coracle"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode System.getenv("CI_PIPELINE_ID") as Integer ?: 1
@@ -108,13 +108,13 @@ android {
     productFlavors {
         dev {
             dimension = "app"
-            applicationId "dev.de.bornholdtlee.defaultproject"
-            buildConfigField 'String', 'BASE_URL', '"https://api.stackexchange.com"'
+            applicationId "dev.de.timbo.coracle"
+            buildConfigField 'String', 'BASE_URL', '"https://api.coincap.io/v2"'
         }
 
         prod {
             dimension = "app"
-            applicationId "de.bornholdtlee.defaultproject"
+            applicationId "de.timbo.coracle"
             buildConfigField 'String', 'BASE_URL', '"https://api.stackexchange.com"'
         }
     }
