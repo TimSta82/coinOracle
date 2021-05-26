@@ -3,6 +3,8 @@ package de.timbo.coracle.injection
 import de.timbo.coracle.BuildConfig
 import de.timbo.coracle.api.CoinCapApiInterface
 import de.timbo.coracle.api.AuthInterceptor
+import de.timbo.coracle.api.CurrencyApiInterface
+import de.timbo.coracle.utils.CURRENCY_EXCHANGE_BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -14,6 +16,7 @@ val networkModule = module {
 
     single { provideOkHttpClient() }
     single { provideRetrofit(get()) }
+    single { provideCurrencyExchangeRetrofit(get()) }
 }
 
 private fun provideOkHttpClient(): OkHttpClient {
@@ -37,3 +40,11 @@ private fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
     .client(okHttpClient)
     .build()
     .create(CoinCapApiInterface::class.java)
+
+
+private fun provideCurrencyExchangeRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
+    .baseUrl(CURRENCY_EXCHANGE_BASE_URL)
+    .addConverterFactory(GsonConverterFactory.create())
+    .client(okHttpClient)
+    .build()
+    .create(CurrencyApiInterface::class.java)
