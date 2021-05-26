@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">cOracle</string>
+    <string name="app_name">coinOracle</string>
 
     <string name="error_load_questions">Fragen konnten nicht geladen werden!</string>
     <string name="download_success">Erfolgreich geladen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
