@@ -1,0 +1,90 @@
+before_script:
+  - export ANDROID_HOME=/Volumes/Daten/android_sdk
+
+stages:
+  - clean
+  - build
+  - code_quality
+  - unit_tests
+  - deploy
+
+clean-build:
+  stage: clean
+  script:
+    - ./gradlew clean
+  tags:
+    - android
+
+build-dev-debug:
+  stage: build
+  script:
+    - ./gradlew assembleDevDebug
+  only:
+    - /^feature.*$/
+  except:
+    - development
+    - master
+  tags:
+    - android
+
+build-dev-release:
+  stage: build
+  script:
+    - ./gradlew assembleDevRelease
+  only:
+    - development
+  tags:
+    - android
+
+build-prod-release:
+  stage: build
+  script:
+    - ./gradlew assembleProdRelease
+  only:
+    - master
+  tags:
+    - android
+  artifacts:
+    paths:
+      - app/build/outputs/apk/
+      - app/build/outputs/mapping/
+
+code_quality:
+  stage: code_quality
+  tags:
+    - android
+  script:
+    - ./gradlew ktlintCheck
+  after_script:
+    - cp -r app/build/reports/ /Users/gitlabrunner/node-gradle-check/public/$CI_COMMIT_SHA/
+    - 'echo "PMD Report: http://01-gitlab-runner.local:3001/$CI_COMMIT_SHA/pmd/pmd.html"'
+    - 'echo "FindBugs Report: http://01-gitlab-runner.local:3001/$CI_COMMIT_SHA/findbugs/findbugs.html"'
+    - 'echo "Lint Report: http://01-gitlab-runner.local:3001/$CI_COMMIT_SHA/lint/lint-result.html"'
+    - 'echo "Checkstyle Report: http://01-gitlab-runner.local:3001/$CI_COMMIT_SHA/checkstyle/checkstyle.html"'
+
+unit_tests:
+  stage: unit_tests
+  tags:
+    - android
+  script:
+    - ./gradlew testProdReleaseUnitTest
+
+deploy-dev-release:
+  stage: deploy
+  script:
+    - ./gradlew assembleDevRelease appCenterUploadDevRelease
+  only:
+    - development
+  tags:
+    - android
+  when: on_success
+
+deploy-prod-release:
+  stage: deploy
+  script:
+    - ./gradlew assembleProdRelease appCenterUploadProdRelease
+  only:
+    - master
+  tags:
+    - android
+  when: on_success

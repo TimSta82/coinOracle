@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/two_grid_unit">
+
+    <TextView
+        android:id="@+id/welcome_Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="DEFAULT PROJECT" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/counter_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        android:text="Counter" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/take_photo_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        android:text="Foto aufnehmen" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/load_questions_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        android:text="Fragen laden" />
+
+    <TextView
+        android:id="@+id/questions_Iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        tools:text="@tools:sample/lorem/random" />
+
+</LinearLayout>
