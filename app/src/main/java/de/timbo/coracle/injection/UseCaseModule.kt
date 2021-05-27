@@ -1,8 +1,6 @@
 package de.timbo.coracle.injection
 
-import de.timbo.coracle.usecases.GetAssetsUseCase
-import de.timbo.coracle.usecases.RefreshQuestionsFromApiUseCase
-import de.timbo.coracle.usecases.WatchQuestionsFromDbUseCase
+import de.timbo.coracle.usecases.*
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -11,4 +9,6 @@ val useCaseModule = module {
     single { WatchQuestionsFromDbUseCase() }
 
     single { GetAssetsUseCase() }
+    single { GetCurrencyExchangeRateUseCase() }
+    single { GetEuroRateUseCase() }
 }

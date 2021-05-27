@@ -12,7 +12,7 @@ class QuestionRepository : BaseRepository() {
 
     private val questionDao by inject<QuestionDao>()
 
-    suspend fun startDownload(): ResponseEvaluator.Result<QuestionListDto> = apiCall { api.loadQuestions("android") }
+    suspend fun startDownload(): ResponseEvaluator.Result<QuestionListDto> = coinApiCall { coinApi.loadQuestions("android") }
 
     fun watchAllQuestions(): LiveData<List<QuestionEntity>> = questionDao.watchAll()
 

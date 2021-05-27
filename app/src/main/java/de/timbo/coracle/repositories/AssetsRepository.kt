@@ -2,5 +2,5 @@ package de.timbo.coracle.repositories
 
 class AssetsRepository : BaseRepository() {
 
-    suspend fun getAssets() = apiCall { api.getAssets() }
+    suspend fun getAssets() = coinApiCall { coinApi.getAssets() }
 }

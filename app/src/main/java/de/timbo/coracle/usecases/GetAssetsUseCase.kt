@@ -8,20 +8,36 @@ import org.koin.core.component.inject
 class GetAssetsUseCase : BaseUseCase() {
 
     private val assetsRepository by inject<AssetsRepository>()
+    private val getEuroRateUseCase by inject<GetEuroRateUseCase>()
 
-    suspend fun getAssets(): UseCaseResult<List<Asset>> {
+    suspend fun getAssets(): AssetsResult {
+        var rate = -0.1
+//        val euro = getEuroRateUseCase.call()
+        when (val result = getEuroRateUseCase.call()) {
+            is UseCaseResult.Success -> rate = result.resultObject.conversionRate!!
+            else -> AssetsResult.CurrencyFailure
+        }
         return when (val result = assetsRepository.getAssets()) {
             is ResponseEvaluator.Result.Success -> {
                 result.response.body()?.let { assetsDto ->
                     val assets = assetsDto.assets?.map { dto ->
+//                        Asset(dto).getPriceEuro(rate)
                         Asset(dto)
                     }
                     assets?.let {
-                        UseCaseResult.Success(assets)
+                        AssetsResult.Success(assets)
+//                        UseCaseResult.Success(assets)
                     }
-                } ?: UseCaseResult.Failure()
+//                } ?: UseCaseResult.Failure()
+                } ?: AssetsResult.AssetsFailure
             }
-            else -> UseCaseResult.Failure()
+            else -> AssetsResult.AssetsFailure
         }
+    }
+
+    sealed class AssetsResult {
+        data class Success(val assets: List<Asset>): AssetsResult()
+        object CurrencyFailure: AssetsResult()
+        object AssetsFailure: AssetsResult()
     }
 }

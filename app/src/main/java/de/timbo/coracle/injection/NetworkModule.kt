@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 val networkModule = module {
 
-    single { provideOkHttpClient() }
+    factory { provideOkHttpClient() }
     single { provideRetrofit(get()) }
     single { provideCurrencyExchangeRetrofit(get()) }
 }

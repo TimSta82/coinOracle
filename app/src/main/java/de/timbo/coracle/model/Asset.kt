@@ -12,6 +12,7 @@ data class Asset(
     val marketCapUsd: String?,
     val volumeUsd24Hr: String?,
     val priceUsd: String?,
+    val priceEuro: String?,
     val changePercent24Hr: String?,
     val vwap24Hr: String?,
     val explorer: String?
@@ -28,6 +29,16 @@ data class Asset(
         priceUsd = dto.priceUsd,
         changePercent24Hr = dto.changePercent24Hr,
         vwap24Hr = dto.vwap24Hr,
-        explorer = dto.explorer
+        explorer = dto.explorer,
+        priceEuro = ""
     )
+
+    fun getPriceEuro(rate: Double): Asset {
+        val price = priceUsd?.let {
+            it.toDouble() * rate
+        } ?: 0.0
+        return copy(
+            priceEuro = price.toString()
+        )
+    }
 }
