@@ -1,13 +1,16 @@
 package de.timbo.coinOracle.injection
 
+import android.content.Context
 import de.timbo.coinOracle.BuildConfig
 import de.timbo.coinOracle.api.ApiType
-import de.timbo.coinOracle.api.CoinCapApiInterface
 import de.timbo.coinOracle.api.AuthInterceptor
+import de.timbo.coinOracle.api.CoinCapApiInterface
 import de.timbo.coinOracle.api.CurrencyApiInterface
+import de.timbo.coinOracle.utils.ApiDebugInterceptorUtils
 import de.timbo.coinOracle.utils.CURRENCY_EXCHANGE_BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -16,17 +19,18 @@ import java.util.concurrent.TimeUnit
 
 val networkModule = module {
 
-    single(qualifier(ApiType.COIN_CAP)) { provideOkHttpClient() }
+    single(qualifier(ApiType.COIN_CAP)) { provideOkHttpClient(androidContext()) }
     single { provideRetrofit(get(qualifier(ApiType.COIN_CAP))) }
-    single(qualifier(ApiType.CURRENCY)) { provideCurrencyOkHttpClient() }
+    single(qualifier(ApiType.CURRENCY)) { provideCurrencyOkHttpClient(androidContext()) }
     single { provideCurrencyExchangeRetrofit(get(qualifier(ApiType.CURRENCY))) }
 }
 
-private fun provideOkHttpClient(): OkHttpClient {
+private fun provideOkHttpClient(androidContext: Context): OkHttpClient {
     val builder = OkHttpClient.Builder()
 
     if (BuildConfig.DEBUG) {
         builder.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+        builder.addInterceptor(ApiDebugInterceptorUtils.createChuckerInterceptor(androidContext))
     }
 
     builder.addInterceptor(AuthInterceptor())
@@ -37,11 +41,12 @@ private fun provideOkHttpClient(): OkHttpClient {
     return builder.build()
 }
 
-private fun provideCurrencyOkHttpClient(): OkHttpClient {
+private fun provideCurrencyOkHttpClient(androidContext: Context): OkHttpClient {
     val builder = OkHttpClient.Builder()
 
     if (BuildConfig.DEBUG) {
         builder.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+        builder.addInterceptor(ApiDebugInterceptorUtils.createChuckerInterceptor(androidContext))
     }
 
     builder.addInterceptor(AuthInterceptor())
