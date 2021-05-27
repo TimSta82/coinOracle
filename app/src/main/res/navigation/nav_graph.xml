@@ -8,17 +8,17 @@
 
     <fragment
         android:id="@+id/assetsFragment"
-        android:name="de.timbo.coracle.ui.assets.AssetsFragment"
+        android:name="de.timbo.coinOracle.ui.assets.AssetsFragment"
         android:label="fragment_assets"
         tools:layout="@layout/fragment_assets" />
     <fragment
         android:id="@+id/correlationFragment"
-        android:name="de.timbo.coracle.ui.correlation.CorrelationFragment"
+        android:name="de.timbo.coinOracle.ui.correlation.CorrelationFragment"
         android:label="fragment_correlation"
         tools:layout="@layout/fragment_correlation" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="de.timbo.coracle.ui.settings.SettingsFragment"
+        android:name="de.timbo.coinOracle.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 
