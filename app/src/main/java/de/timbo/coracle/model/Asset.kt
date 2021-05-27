@@ -30,7 +30,7 @@ data class Asset(
         changePercent24Hr = dto.changePercent24Hr,
         vwap24Hr = dto.vwap24Hr,
         explorer = dto.explorer,
-        priceEuro = ""
+        priceEuro = null
     )
 
     fun getPriceEuro(rate: Double): Asset {

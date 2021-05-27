@@ -18,7 +18,8 @@ class AssetsFragment : BaseFragment(R.layout.fragment_assets) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getAssets()
+//        viewModel.getAssets(euro)
+        viewModel.getEuroRate()
         setObservers()
     }
 
