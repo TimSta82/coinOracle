@@ -11,4 +11,5 @@ val useCaseModule = module {
     single { GetAssetsUseCase() }
     single { GetCurrencyExchangeRateUseCase() }
     single { GetEuroRateUseCase() }
+    single { GetAssetHistoryUseCase() }
 }

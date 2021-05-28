@@ -1,7 +1,11 @@
 package de.timbo.coinOracle.model
 
+import android.os.Parcelable
 import de.timbo.coinOracle.api.model.AssetsDto
 
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Asset(
     val id: String?,
     val rank: String?,
@@ -16,7 +20,7 @@ data class Asset(
     val changePercent24Hr: String?,
     val vwap24Hr: String?,
     val explorer: String?
-) {
+) : Parcelable {
     constructor(dto: AssetsDto.AssetDto) : this(
         id = dto.id,
         rank = dto.rank,

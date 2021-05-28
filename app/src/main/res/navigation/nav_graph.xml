@@ -10,7 +10,11 @@
         android:id="@+id/assetsFragment"
         android:name="de.timbo.coinOracle.ui.assets.AssetsFragment"
         android:label="fragment_assets"
-        tools:layout="@layout/fragment_assets" />
+        tools:layout="@layout/fragment_assets" >
+        <action
+            android:id="@+id/action_assetsFragment_to_assetDetailsFragment"
+            app:destination="@id/assetDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/correlationFragment"
         android:name="de.timbo.coinOracle.ui.correlation.CorrelationFragment"
@@ -21,5 +25,17 @@
         android:name="de.timbo.coinOracle.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/assetDetailsFragment"
+        android:name="de.timbo.coinOracle.ui.assets.assetdetails.AssetDetailsFragment"
+        android:label="fragment_asset_details"
+        tools:layout="@layout/fragment_asset_details" >
+        <action
+            android:id="@+id/action_assetDetailsFragment_to_assetsFragment"
+            app:destination="@id/assetsFragment" />
+        <argument
+            android:name="assetDetails"
+            app:argType="de.timbo.coinOracle.model.AssetDetails" />
+    </fragment>
 
 </navigation>

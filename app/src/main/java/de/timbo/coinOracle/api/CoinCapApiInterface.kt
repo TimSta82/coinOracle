@@ -1,9 +1,11 @@
 package de.timbo.coinOracle.api
 
+import de.timbo.coinOracle.api.model.AssetHistoryDto
 import de.timbo.coinOracle.api.model.AssetsDto
 import de.timbo.coinOracle.api.model.QuestionListDto
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CoinCapApiInterface {
@@ -16,4 +18,7 @@ interface CoinCapApiInterface {
 
     @GET("/v2/assets")
     suspend fun getAssets(): Response<AssetsDto>
+
+    @GET("/v2/assets/{id}/history")
+    suspend fun getHistory(@Path ("id") id: String, @Query ("interval") interval: String): Response<AssetHistoryDto>
 }
