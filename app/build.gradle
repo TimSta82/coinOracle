@@ -4,11 +4,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply plugin: 'com.betomorrow.appcenter'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "de.timbo.coracle"
+        applicationId "de.timbo.coinOracle"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode System.getenv("CI_PIPELINE_ID") as Integer ?: 1
@@ -108,13 +109,13 @@ android {
     productFlavors {
         dev {
             dimension = "app"
-            applicationId "dev.de.timbo.coracle"
+            applicationId "dev.de.timbo.coinOracle"
             buildConfigField 'String', 'BASE_URL', '"https://api.coincap.io"'
         }
 
         prod {
             dimension = "app"
-            applicationId "de.timbo.coracle"
+            applicationId "de.timbo.coinOracle"
             buildConfigField 'String', 'BASE_URL', '"https://api.stackexchange.com"'
         }
     }
@@ -212,4 +213,8 @@ dependencies {
     testImplementation('org.threeten:threetenbp:1.5.0') {
         exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
     }
+
+    // FANCY STUFF
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.sparrow007:carouselrecyclerview:1.2.1'
 }
