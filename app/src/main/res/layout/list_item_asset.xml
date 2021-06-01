@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/one_grid_unit"
+    android:layout_marginStart="@dimen/one_grid_unit"
+    android:layout_marginTop="@dimen/half_grid_unit"
+    android:layout_marginEnd="@dimen/one_grid_unit"
+    android:layout_marginBottom="@dimen/half_grid_unit"
     android:elevation="@dimen/half_grid_unit"
     app:cardCornerRadius="@dimen/half_grid_unit">
 
@@ -15,9 +18,9 @@
 
         <TextView
             android:id="@+id/item_asset_symbol_Tv"
+            style="@style/Text.ListItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Text.ListItem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,9 +28,9 @@
 
         <TextView
             android:id="@+id/item_asset_title_Tv"
+            style="@style/Text.ListItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/Text.ListItem"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView2"
@@ -37,9 +40,9 @@
 
         <TextView
             android:id="@+id/textView2"
+            style="@style/Text.ListItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Text.ListItem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

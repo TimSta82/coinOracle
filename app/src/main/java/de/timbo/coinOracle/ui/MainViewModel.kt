@@ -3,6 +3,7 @@ package de.timbo.coinOracle.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.timbo.coinOracle.api.model.CurrencyPairResponseDto
 import de.timbo.coinOracle.database.model.PortfolioEntity
 import de.timbo.coinOracle.extensions.launch
@@ -10,6 +11,8 @@ import de.timbo.coinOracle.usecases.*
 import de.timbo.coinOracle.utils.Logger
 import de.timbo.coinOracle.utils.SingleLiveEvent
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -36,20 +39,20 @@ class MainViewModel : ViewModel(), KoinComponent {
     var job: Job? = null
 
     // TODO uncomment later. Meanwhile save api traffic
-//    fun startUpdates() {
-//        stopUpdates()
-//        job = viewModelScope.launch {
-//            while (true) {
-//                getEuroRate()
-//                delay(30000)
-//            }
-//        }
-//    }
-//
-//    private fun stopUpdates() {
-//        job?.cancel()
-//        job = null
-//    }
+    fun startUpdates() {
+        stopUpdates()
+        job = viewModelScope.launch {
+            while (true) {
+                getEuroRate()
+                delay(30000)
+            }
+        }
+    }
+
+    private fun stopUpdates() {
+        job?.cancel()
+        job = null
+    }
 
     fun getEuroRate() {
         launch {

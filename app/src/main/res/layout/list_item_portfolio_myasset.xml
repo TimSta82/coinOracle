@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/one_grid_unit"
+    android:layout_marginTop="@dimen/half_grid_unit"
+    android:layout_marginEnd="@dimen/one_grid_unit"
+    android:layout_marginBottom="@dimen/half_grid_unit"
+    android:elevation="@dimen/half_grid_unit"
+    app:cardCornerRadius="@dimen/half_grid_unit">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/one_grid_unit"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_portfolio_asset_symbol_Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BTC" />
+
+        <TextView
+            android:id="@+id/item_portfolio_asset_title_Tv"
+            style="@style/Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/two_grid_unit"
+            app:layout_constraintBottom_toTopOf="@+id/item_portfolio_asset_amount_Tv"
+            app:layout_constraintStart_toEndOf="@+id/item_portfolio_asset_symbol_Tv"
+            app:layout_constraintTop_toTopOf="@+id/item_portfolio_asset_symbol_Tv"
+            tools:text="Bitcoin" />
+
+        <TextView
+            android:id="@+id/item_portfolio_asset_value_Tv"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/item_portfolio_asset_title_Tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/item_portfolio_asset_symbol_Tv"
+            tools:text="123€" />
+
+        <TextView
+            android:id="@+id/item_portfolio_asset_amount_Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/item_portfolio_asset_symbol_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_symbol_Tv"
+            tools:text="Amount: 35" />
+
+        <TextView
+            android:id="@+id/item_portfolio_asset_cumulated_value_Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/item_portfolio_asset_value_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_value_Tv"
+            tools:text="total value: 123213€" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -25,7 +25,8 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
 
         viewModel.initPortfolio()
-        viewModel.getEuroRate()
+        viewModel.startUpdates()
+//        viewModel.getEuroRate()
         setObservers()
 
         navController = findNavController(R.id.nav_host_fragment)

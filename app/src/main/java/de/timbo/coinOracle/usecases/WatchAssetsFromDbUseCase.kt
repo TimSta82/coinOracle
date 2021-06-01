@@ -2,10 +2,8 @@ package de.timbo.coinOracle.usecases
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import de.timbo.coinOracle.database.model.AssetEntity
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.repositories.AssetsRepository
-import de.timbo.coinOracle.repositories.QuestionRepository
 import org.koin.core.component.inject
 
 class WatchAssetsFromDbUseCase : BaseUseCase() {

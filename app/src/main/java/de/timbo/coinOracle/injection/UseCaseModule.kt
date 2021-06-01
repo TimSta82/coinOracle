@@ -5,9 +5,6 @@ import org.koin.dsl.module
 
 val useCaseModule = module {
 
-    single { RefreshQuestionsFromApiUseCase() }
-    single { WatchQuestionsFromDbUseCase() }
-
     single { GetAssetsUseCase() }
     single { GetCurrencyExchangeRateUseCase() }
     single { GetEuroRateUseCase() }
@@ -17,4 +14,6 @@ val useCaseModule = module {
 
     single { BuyAssetUseCase() }
     single { SavePortfolioUseCase() }
+    single { WatchPortfolioFromDbUseCase() }
+    single { WatchPortfolioWithCurrentAssetPricesFromDbUseCase() }
 }

@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import de.timbo.coinOracle.database.dao.PortfolioDao
 import de.timbo.coinOracle.database.model.PortfolioEntity
 
-@Database(entities = [PortfolioEntity::class], version = 1)
+@Database(entities = [PortfolioEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class PortfolioDb : RoomDatabase() {
 

@@ -2,12 +2,12 @@ package de.timbo.coinOracle.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import de.timbo.coinOracle.database.dao.AssetsDao
-import de.timbo.coinOracle.database.dao.QuestionDao
 import de.timbo.coinOracle.database.model.AssetEntity
-import de.timbo.coinOracle.database.model.QuestionEntity
 
-@Database(entities = [AssetEntity::class], version = 1)
+@Database(entities = [AssetEntity::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class AssetsDb : RoomDatabase() {
 
     companion object {
