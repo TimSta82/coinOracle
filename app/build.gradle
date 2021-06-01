@@ -213,4 +213,8 @@ dependencies {
     testImplementation('org.threeten:threetenbp:1.5.0') {
         exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
     }
+
+    // FANCY STUFF
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.sparrow007:carouselrecyclerview:1.2.1'
 }

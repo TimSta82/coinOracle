@@ -13,12 +13,12 @@
     </style>
 
     <style name="Text">
-        <item name="android:textColor">@color/grey</item>
         <item name="fontFamily">@font/ledger</item>
     </style>
 
     <style name="Text.ListItem">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
 </resources>
