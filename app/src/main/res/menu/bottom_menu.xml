@@ -3,6 +3,8 @@
 
     <item android:id="@+id/assetsFragment" android:title="Assets" android:icon="@drawable/ic_assets" />
     <item android:id="@+id/correlationFragment" android:title="Correlation" android:icon="@drawable/ic_correlation" />
+    <item android:id="@+id/tradingFragment" android:title="Trading" android:icon="@drawable/ic_trading" />
+    <item android:id="@+id/portfolioFragment" android:title="Portfolio" android:icon="@drawable/ic_portfolio" />
     <item android:id="@+id/settingsFragment" android:title="Settings" android:icon="@drawable/ic_settings" />
 
 </menu>

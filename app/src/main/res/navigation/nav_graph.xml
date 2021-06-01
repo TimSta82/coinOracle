@@ -10,7 +10,7 @@
         android:id="@+id/assetsFragment"
         android:name="de.timbo.coinOracle.ui.assets.AssetsFragment"
         android:label="fragment_assets"
-        tools:layout="@layout/fragment_assets" >
+        tools:layout="@layout/fragment_assets">
         <action
             android:id="@+id/action_assetsFragment_to_assetDetailsFragment"
             app:destination="@id/assetDetailsFragment" />
@@ -29,7 +29,7 @@
         android:id="@+id/assetDetailsFragment"
         android:name="de.timbo.coinOracle.ui.assets.assetdetails.AssetDetailsFragment"
         android:label="fragment_asset_details"
-        tools:layout="@layout/fragment_asset_details" >
+        tools:layout="@layout/fragment_asset_details">
         <action
             android:id="@+id/action_assetDetailsFragment_to_assetsFragment"
             app:destination="@id/assetsFragment" />
@@ -37,5 +37,15 @@
             android:name="assetDetails"
             app:argType="de.timbo.coinOracle.model.AssetDetails" />
     </fragment>
+    <fragment
+        android:id="@+id/portfolioFragment2"
+        android:name="de.timbo.coinOracle.ui.portfolio.PortfolioFragment"
+        android:label="PortfolioFragment"
+        tools:layout="@layout/fragment_portfolio" />
+    <fragment
+        android:id="@+id/tradingFragment2"
+        android:name="de.timbo.coinOracle.ui.trading.TradingFragment"
+        android:label="TradingFragment"
+        tools:layout="@layout/fragment_trading" />
 
 </navigation>

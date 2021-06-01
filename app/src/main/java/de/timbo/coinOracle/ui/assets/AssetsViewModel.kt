@@ -3,7 +3,7 @@ package de.timbo.coinOracle.ui.assets
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.timbo.coinOracle.api.model.AssetHistoryDto
+import androidx.lifecycle.viewModelScope
 import de.timbo.coinOracle.api.model.CurrencyPairResponseDto
 import de.timbo.coinOracle.extensions.launch
 import de.timbo.coinOracle.model.Asset
@@ -13,6 +13,9 @@ import de.timbo.coinOracle.usecases.GetAssetHistoryUseCase
 import de.timbo.coinOracle.usecases.GetAssetsUseCase
 import de.timbo.coinOracle.usecases.GetEuroRateUseCase
 import de.timbo.coinOracle.utils.SingleLiveEvent
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -36,6 +39,23 @@ class AssetsViewModel : ViewModel(), KoinComponent {
 
     private val _assetDetails = SingleLiveEvent<AssetDetails>()
     val assetDetails: LiveData<AssetDetails> = _assetDetails
+    
+    var job: Job? = null
+
+    fun startUpdates() {
+        stopUpdates()
+        job = viewModelScope.launch {
+            while (true) {
+                getEuroRate()
+                delay(30000)
+            }
+        }
+    }
+
+    private fun stopUpdates() {
+        job?.cancel()
+        job = null
+    }
 
     fun getEuroRate() {
         launch {
