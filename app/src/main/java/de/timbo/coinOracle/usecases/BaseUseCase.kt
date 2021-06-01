@@ -1,9 +1,14 @@
 package de.timbo.coinOracle.usecases
 
 import de.timbo.coinOracle.api.ResponseEvaluator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.core.component.KoinComponent
 
 abstract class BaseUseCase : KoinComponent {
+
+    protected val useCaseScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     sealed class UseCaseResult<T> {
         data class Success<T>(val resultObject: T) : UseCaseResult<T>()

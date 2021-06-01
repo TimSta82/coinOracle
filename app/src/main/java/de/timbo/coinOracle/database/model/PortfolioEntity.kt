@@ -11,8 +11,8 @@ data class PortfolioEntity(
     @ColumnInfo(name = "portfolio_id")
     var portfolioId: String,
 
-    @ColumnInfo(name = "initial_capital")
-    var initialCapital: Double,
+    @ColumnInfo(name = "last_update")
+    var lastUpdate: Long,
 
     @ColumnInfo(name = "budget")
     var budget: Double,

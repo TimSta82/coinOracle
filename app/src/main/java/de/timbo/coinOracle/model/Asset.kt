@@ -17,7 +17,7 @@ data class Asset(
     val marketCapUsd: String,
     val volumeUsd24Hr: String,
     val priceUsd: String,
-    val priceEuro: String?,
+    val priceEuro: String,
     val changePercent24Hr: String,
     val vwap24Hr: String,
     val explorer: String
@@ -35,7 +35,7 @@ data class Asset(
         changePercent24Hr = dto.changePercent24Hr ?: "-1",
         vwap24Hr = dto.vwap24Hr ?: "-1",
         explorer = dto.explorer ?: "-1",
-        priceEuro = null
+        priceEuro = "-1"
     )
 
     constructor(entity: AssetEntity) : this(

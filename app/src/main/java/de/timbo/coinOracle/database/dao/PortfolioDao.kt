@@ -9,5 +9,8 @@ import de.timbo.coinOracle.database.model.PortfolioEntity
 abstract class PortfolioDao : BaseDao<PortfolioEntity>() {
 
     @Query("SELECT * FROM PortfolioEntity")
-    abstract fun watchPortfolio() : LiveData<PortfolioEntity>
+    abstract fun watchPortfolio(): LiveData<PortfolioEntity>
+
+    @Query("SELECT * FROM PortfolioEntity")
+    abstract suspend fun getPortfolio(): PortfolioEntity
 }

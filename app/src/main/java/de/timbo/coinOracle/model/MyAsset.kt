@@ -10,14 +10,14 @@ data class MyAsset(
     val symbol: String,
     val purchasePriceUsd: String,
     val purchasePriceEur: String,
-    val amount: String
+    val amount: Double
 ) : Parcelable {
-    constructor(asset: Asset, amount: String) : this(
+    constructor(asset: Asset, amount: Double) : this(
         id = asset.id,
         name = asset.name,
         symbol = asset.symbol,
         purchasePriceUsd = asset.priceUsd,
-        purchasePriceEur = asset.priceEuro ?: "-1",
+        purchasePriceEur = asset.priceEuro,
         amount = amount
     )
 }

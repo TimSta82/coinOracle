@@ -53,6 +53,17 @@ class Converters {
     }
 
     @TypeConverter
+    fun myAssetsListToString(myAsset: List<MyAsset>): String {
+        return Gson().toJson(myAsset)
+    }
+
+    @TypeConverter
+    fun stringToMyAssetsList(myAssetsListString: String): List<MyAsset> {
+        val assetType = object : TypeToken<List<MyAsset>>() {}.type
+        return Gson().fromJson(myAssetsListString, assetType)
+    }
+
+    @TypeConverter
     fun stringListToJson(value: List<String>): String = Gson().toJson(value)
 
     @TypeConverter
@@ -64,14 +75,4 @@ class Converters {
     @TypeConverter
     fun jsonToIntList(value: String): List<Int> = Gson().fromJson(value, Array<Int>::class.java).toList()
 
-//    @TypeConverter
-//    fun extendedIngredientsToString(extendedIngredientEntities: List<ExtendedIngredientEntity>): String {
-//        return Gson().toJson(extendedIngredientEntities)
-//    }
-//
-//    @TypeConverter
-//    fun stringToExtendedIngredients(extendedIngredientString: String): List<ExtendedIngredientEntity> {
-//        val type = object : TypeToken<List<ExtendedIngredientEntity>>() {}.type
-//        return Gson().fromJson(extendedIngredientString, type)
-//    }
 }
