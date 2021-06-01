@@ -39,7 +39,7 @@ class AssetsViewModel : ViewModel(), KoinComponent {
 
     private val _assetDetails = SingleLiveEvent<AssetDetails>()
     val assetDetails: LiveData<AssetDetails> = _assetDetails
-    
+
     var job: Job? = null
 
     fun startUpdates() {

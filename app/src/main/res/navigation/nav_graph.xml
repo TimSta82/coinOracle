@@ -38,12 +38,12 @@
             app:argType="de.timbo.coinOracle.model.AssetDetails" />
     </fragment>
     <fragment
-        android:id="@+id/portfolioFragment2"
+        android:id="@+id/portfolioFragment"
         android:name="de.timbo.coinOracle.ui.portfolio.PortfolioFragment"
         android:label="PortfolioFragment"
         tools:layout="@layout/fragment_portfolio" />
     <fragment
-        android:id="@+id/tradingFragment2"
+        android:id="@+id/tradingFragment"
         android:name="de.timbo.coinOracle.ui.trading.TradingFragment"
         android:label="TradingFragment"
         tools:layout="@layout/fragment_trading" />
