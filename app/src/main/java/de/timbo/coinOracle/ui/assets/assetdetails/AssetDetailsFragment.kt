@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -20,7 +21,6 @@ import java.math.RoundingMode
 import java.sql.Date
 import java.text.DecimalFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
@@ -35,15 +35,11 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 
         setChart()
         setData()
-
-//        val assetHistoryList = navArgs.assetDetails.assetHistory.assetHistory?.map {
-//            if (it != null) AssetHistory(roundOffDecimal(it.priceUsd?.toDouble() ?: -1.00), "", convertLongToTime(it.time ?: -1L)) else AssetHistory("-1.00", "", convertLongToTime(-1L))
-//        } ?: listOf(AssetHistory("-1.00", "", convertLongToTime(-1L)))
     }
 
     private fun setChart() {
         val chart = binding.assetDetailsChart
-        chart.setViewPortOffsets(0F, 0F, 1F, 0F)
+        chart.setExtraOffsets(0F, 0F, 0.5F, 0F)
         chart.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
 
         chart.description.isEnabled = false
@@ -59,21 +55,23 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 
         // X AXIS
         val x = chart.xAxis
-        x.isEnabled = false
+        x.isEnabled = false // set to true for x-values
         x.granularity = 1f
-        x.setCenterAxisLabels(true)
+        x.textColor = Color.WHITE
+        x.position = XAxis.XAxisPosition.TOP_INSIDE
+//        x.setLabelCount(12, false)
+//        x.valueFormatter = MonthValueFormatter()
         x.valueFormatter = object : ValueFormatter() {
+            //            val format = SimpleDateFormat("MM yyyy", Locale.ENGLISH)
             val format = SimpleDateFormat("dd MMM HH:mm", Locale.ENGLISH)
             override fun getFormattedValue(value: Float, axis: AxisBase?): String {
-                val millis = TimeUnit.HOURS.toMillis(value.toLong())
+                val millis = java.util.concurrent.TimeUnit.DAYS.toMillis(value.toLong())
                 return format.format(Date(millis))
             }
         }
 
-
         // Y AXIS
         val y = chart.axisLeft
-//        y.typeface = tfLight
         y.setLabelCount(6, false)
         y.textColor = Color.WHITE
         y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
@@ -82,8 +80,6 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 
         chart.axisRight.isEnabled = false
 
-//        chart.legend.isEnabled = false
-
         chart.animateXY(2000, 2000)
 
         chart.invalidate()
@@ -91,24 +87,27 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 
     fun setData() {
         var values = ArrayList<Entry>()
-        navArgs.assetDetails.assetHistory.assetHistory?.forEach {
-            if (it != null) values.add(Entry(it.time?.toFloat() ?: -1F, it.priceUsd?.toFloat() ?: -1F))
+        navArgs.assetDetails.assetHistory.assetHistory?.forEach { assetHistoryData ->
+//            assetHistoryData?.let {
+//                val timeString = convertLongToTime(it.time!!)
+//                val date = timeString.toDate()
+//                val month = date.month
+//                values.add(Entry(month.toFloat(), assetHistoryData.priceUsd?.toFloat() ?: -1F))
+//            }
+            if (assetHistoryData != null) values.add(Entry(assetHistoryData.time?.toFloat() ?: -1F, assetHistoryData.priceUsd?.toFloat() ?: -1F))
         }
         val set1 = LineDataSet(values, "${navArgs.assetDetails.asset.name}")
         set1.mode = LineDataSet.Mode.LINEAR
-        set1.cubicIntensity = 0.2f
+//        set1.cubicIntensity = 0.2f
 
         val data = LineData(set1)
 
         binding.assetDetailsChart.data = data
-
-        val legend = binding.assetDetailsChart.legend
-        legend.isEnabled = true
     }
 
     private fun convertLongToTime(time: Long): String {
         val date = Date(time)
-        val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         return format.format(date)
     }
 

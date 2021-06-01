@@ -42,20 +42,21 @@ class AssetsViewModel : ViewModel(), KoinComponent {
 
     var job: Job? = null
 
-    fun startUpdates() {
-        stopUpdates()
-        job = viewModelScope.launch {
-            while (true) {
-                getEuroRate()
-                delay(30000)
-            }
-        }
-    }
-
-    private fun stopUpdates() {
-        job?.cancel()
-        job = null
-    }
+    // TODO uncomment later. Meanwhile save api traffic
+//    fun startUpdates() {
+//        stopUpdates()
+//        job = viewModelScope.launch {
+//            while (true) {
+//                getEuroRate()
+//                delay(30000)
+//            }
+//        }
+//    }
+//
+//    private fun stopUpdates() {
+//        job?.cancel()
+//        job = null
+//    }
 
     fun getEuroRate() {
         launch {
