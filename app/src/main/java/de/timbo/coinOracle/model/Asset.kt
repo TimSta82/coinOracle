@@ -2,6 +2,7 @@ package de.timbo.coinOracle.model
 
 import android.os.Parcelable
 import de.timbo.coinOracle.api.model.AssetsDto
+import de.timbo.coinOracle.database.model.AssetEntity
 
 import kotlinx.android.parcel.Parcelize
 
@@ -37,10 +38,40 @@ data class Asset(
         priceEuro = null
     )
 
+    constructor(entity: AssetEntity) : this(
+        id = entity.id,
+        rank = entity.rank,
+        symbol = entity.symbol,
+        name = entity.name,
+        supply = entity.supply,
+        maxSupply = entity.maxSupply,
+        marketCapUsd = entity.marketCapUsd,
+        volumeUsd24Hr = entity.volumeUsd24Hr,
+        priceUsd = entity.priceUsd,
+        changePercent24Hr = entity.changePercent24Hr,
+        vwap24Hr = entity.vwap24Hr,
+        explorer = entity.explorer,
+        priceEuro = entity.priceEur
+    )
+
+    fun toEntity() = AssetEntity(
+        id = id,
+        rank = rank,
+        symbol = symbol,
+        name = name,
+        supply = supply,
+        maxSupply = maxSupply,
+        marketCapUsd = marketCapUsd,
+        volumeUsd24Hr = volumeUsd24Hr,
+        priceUsd = priceUsd,
+        priceEur = priceEuro ?: "-1",
+        changePercent24Hr = changePercent24Hr,
+        vwap24Hr = vwap24Hr,
+        explorer = explorer
+    )
+
     fun getPriceEuro(rate: Double): Asset {
-        val price = priceUsd?.let {
-            it.toDouble() * rate
-        } ?: 0.0
+        val price = priceUsd.toDouble() * rate
         return copy(
             priceEuro = price.toString()
         )

@@ -19,6 +19,9 @@ val dataModule = module {
     single { Room.databaseBuilder(androidContext(), PortfolioDb::class.java, PortfolioDb.PORTFOLIO_DB_NAME).build() }
     single { get<PortfolioDb>().portfolioDao() }
 
+    single { Room.databaseBuilder(androidContext(), AssetsDb::class.java, AssetsDb.ASSETS_DB_NAME).build() }
+    single { get<AssetsDb>().assetsDao() }
+
     single { KeyValueStore(androidContext()) }
     single { KeyValueStoreEncrypted(androidContext()) }
 }

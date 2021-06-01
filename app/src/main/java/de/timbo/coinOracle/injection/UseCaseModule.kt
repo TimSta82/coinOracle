@@ -12,4 +12,6 @@ val useCaseModule = module {
     single { GetCurrencyExchangeRateUseCase() }
     single { GetEuroRateUseCase() }
     single { GetAssetHistoryUseCase() }
+    single { SaveAssetsUseCase() }
+    single { WatchAssetsFromDbUseCase() }
 }
