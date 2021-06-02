@@ -38,6 +38,9 @@ class MainActivity : BaseActivity() {
         viewModel.assetsFailure.observe(this) { showError("Failed loading assets") }
         viewModel.portfolio.observe(this) { portfolioEntity -> Logger.debug("Portfolio: $portfolioEntity") }
         viewModel.portFolioFailure.observe(this) { showError("Unable to buy something") }
+
+        viewModel.sellSuccess.observe(this) { Logger.debug("Successfully sold")}
+        viewModel.sellFailure.observe(this) { errorMessage -> showError(errorMessage)}
     }
 
     private fun showError(message: String) {
