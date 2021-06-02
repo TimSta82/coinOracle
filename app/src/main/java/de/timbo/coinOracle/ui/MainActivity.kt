@@ -1,6 +1,5 @@
 package de.timbo.coinOracle.ui
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -38,7 +37,7 @@ class MainActivity : BaseActivity() {
         viewModel.euroFailure.observe(this) { showError("Failed loading currency exchange rate") }
         viewModel.assetsFailure.observe(this) { showError("Failed loading assets") }
         viewModel.portfolio.observe(this) { portfolioEntity -> Logger.debug("Portfolio: $portfolioEntity") }
-        viewModel.portFolioFailure.observe(this) { showError("Failed loading assets") }
+        viewModel.portFolioFailure.observe(this) { showError("Unable to buy something") }
     }
 
     private fun showError(message: String) {

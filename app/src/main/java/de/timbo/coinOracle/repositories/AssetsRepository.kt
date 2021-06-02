@@ -1,9 +1,9 @@
 package de.timbo.coinOracle.repositories
 
-import androidx.lifecycle.LiveData
 import de.timbo.coinOracle.database.dao.AssetsDao
 import de.timbo.coinOracle.database.model.AssetEntity
 import de.timbo.coinOracle.model.Asset
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
@@ -21,5 +21,5 @@ class AssetsRepository : BaseRepository() {
         }
     }
 
-    fun watchAllAssets(): LiveData<List<AssetEntity>> = assetDao.watchAll()
+    fun watchAllAssets(): Flow<List<AssetEntity>> = assetDao.watchAll()
 }

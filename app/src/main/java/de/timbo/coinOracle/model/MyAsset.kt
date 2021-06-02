@@ -5,19 +5,17 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MyAsset(
-    val id: String,
-    val name: String,
-    val symbol: String,
+    val asset: Asset,
+    val amount: Double,
+    val timeStamp: Long,
     val purchasePriceUsd: String,
-    val purchasePriceEur: String,
-    val amount: Double
+    val purchasePriceEur: String
 ) : Parcelable {
     constructor(asset: Asset, amount: Double) : this(
-        id = asset.id,
-        name = asset.name,
-        symbol = asset.symbol,
+        asset = asset,
+        amount = amount,
+        timeStamp = System.currentTimeMillis(),
         purchasePriceUsd = asset.priceUsd,
-        purchasePriceEur = asset.priceEuro,
-        amount = amount
+        purchasePriceEur = asset.priceEuro
     )
 }

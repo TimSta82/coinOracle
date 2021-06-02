@@ -14,7 +14,7 @@ class BuyAssetUseCase : BaseUseCase() {
         val portfolio = portfolioRepository.getPortfolio()
         return if (portfolio.budget >= budget) {
             var amount = budget / asset.priceEuro.toDouble()
-            val oldAsset = portfolio.myAssets.find { myAsset -> myAsset.id == asset.id }
+            val oldAsset = portfolio.myAssets.find { myAsset -> myAsset.asset.id == asset.id }
             if (oldAsset != null) {
                 amount += oldAsset.amount
             }

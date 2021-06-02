@@ -13,14 +13,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="@dimen/one_grid_unit"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/one_grid_unit">
 
         <TextView
             android:id="@+id/item_portfolio_asset_symbol_Tv"
+            style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BTC" />
@@ -31,13 +31,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/two_grid_unit"
-            app:layout_constraintBottom_toTopOf="@+id/item_portfolio_asset_amount_Tv"
+            app:layout_constraintBottom_toBottomOf="@+id/item_portfolio_asset_symbol_Tv"
             app:layout_constraintStart_toEndOf="@+id/item_portfolio_asset_symbol_Tv"
             app:layout_constraintTop_toTopOf="@+id/item_portfolio_asset_symbol_Tv"
             tools:text="Bitcoin" />
 
         <TextView
-            android:id="@+id/item_portfolio_asset_value_Tv"
+            android:id="@+id/item_portfolio_current_asset_value_Tv"
             style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,19 +48,22 @@
 
         <TextView
             android:id="@+id/item_portfolio_asset_amount_Tv"
+            style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/half_grid_unit"
             app:layout_constraintStart_toStartOf="@+id/item_portfolio_asset_symbol_Tv"
             app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_symbol_Tv"
             tools:text="Amount: 35" />
 
         <TextView
             android:id="@+id/item_portfolio_asset_cumulated_value_Tv"
+            style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/item_portfolio_asset_value_Tv"
-            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_value_Tv"
+            android:layout_marginTop="@dimen/half_grid_unit"
+            app:layout_constraintStart_toStartOf="@+id/item_portfolio_asset_amount_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_amount_Tv"
             tools:text="total value: 123213€" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
