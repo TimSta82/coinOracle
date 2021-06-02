@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/portfolio_background">
+    android:background="@color/portfolio_background"
+    android:padding="@dimen/one_grid_unit">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/portfolio_budget_Tv"
-        android:layout_width="0dp"
-        android:layout_marginStart="@dimen/one_grid_unit"
-        android:layout_height="wrap_content"
         style="@style/Text.ListItem"
-        android:text="budget= 123"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/one_grid_unit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="budget= 123" />
+
+    <TextView
+        android:id="@+id/portfolio_cumulated_value_Tv"
+        style="@style/Text.ListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/one_grid_unit"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/portfolio_budget_Tv"
+        app:layout_constraintTop_toBottomOf="@id/portfolio_budget_Tv"
+        tools:text="12323€" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/portfolio_assets_Rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/two_grid_unit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/one_grid_unit"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/list_item_portfolio_myasset"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portfolio_budget_Tv" />
+        app:layout_constraintTop_toBottomOf="@+id/portfolio_cumulated_value_Tv"
+        tools:listitem="@layout/list_item_portfolio_myasset" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import de.timbo.coinOracle.utils.SingleLiveEvent
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class MainViewModel : ViewModel(), KoinComponent {
+class MainFragmentViewModel : ViewModel(), KoinComponent {
 
     private val keyValueStore by inject<KeyValueStore>()
 

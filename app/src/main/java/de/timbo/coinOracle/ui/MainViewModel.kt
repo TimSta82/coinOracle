@@ -80,13 +80,12 @@ class MainViewModel : ViewModel(), KoinComponent {
             when (val result = getAssetsUseCase.getAssets(euro)) {
                 is BaseUseCase.UseCaseResult.Success -> {
                     result.resultObject.let { assets ->
-                        val cardano = assets.find { it.symbol == "ADA" }
-                        cardano?.let {
-                            Logger.debug("getAssets() call. Cardano found")
-                            buyAsset(cardano)
-                            sellAsset(cardano)
+                        val assetsSize = assets.size
+                        val randomAsset = assets[Random.nextInt(assetsSize - 1)]
 
-                        }
+                        sellAsset(randomAsset)
+                        buyAsset(randomAsset)
+
                         saveAssetsUseCase.call(assets)
                     }
                 }
@@ -96,9 +95,9 @@ class MainViewModel : ViewModel(), KoinComponent {
     }
 
     private suspend fun sellAsset(asset: Asset) {
-        when (sellAssetUseCase.call(asset, Random.nextDouble(5.0))) {
+        when (sellAssetUseCase.call(asset, Random.nextDouble(1.0))) {
             is SellAssetUseCase.SellAssetResult.Success -> {
-                Logger.debug("getAssets() called. Cardano sold")
+                Logger.debug("getAssets() called. ${asset.name} sold")
                 _sellSuccess.callAsync()
             }
             is SellAssetUseCase.SellAssetResult.NotEnoughFailure -> _sellFailure.postValue("Not enough amount")
@@ -108,13 +107,13 @@ class MainViewModel : ViewModel(), KoinComponent {
     }
 
     private suspend fun buyAsset(asset: Asset) {
-        when (val result = buyAssetUseCase.call(asset, Random.nextDouble(5.0))) {
+        when (val result = buyAssetUseCase.call(asset, Random.nextDouble(1.0))) {
             is BuyAssetUseCase.BuyAssetResult.Success -> {
-                Logger.debug("getAssets() call. Cardano bought")
+                Logger.debug("getAssets() call. ${asset.name} bought")
                 _portfolio.postValue(result.portfolio)
             }
             is BuyAssetUseCase.BuyAssetResult.NotEnoughBudget -> {
-                Logger.debug("getAssets() call. Cardano NOT bought")
+                Logger.debug("getAssets() call. ${asset.name} NOT bought")
                 _portFolioFailure.callAsync()
             }
         }

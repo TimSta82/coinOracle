@@ -21,4 +21,9 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="Text.ListItem.Portfolio">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>

@@ -26,7 +26,7 @@ class PortfolioAdapter(private val portfolioWithCurrentAssetPrices: PortfolioWit
             val currentAsset = getCurrentAssetPrice(myAsset)
             binding.itemPortfolioAssetSymbolTv.text = myAsset.asset.symbol
             binding.itemPortfolioAssetTitleTv.text = myAsset.asset.name
-            binding.itemPortfolioCurrentAssetValueTv.text = "${currentAsset.priceEuro}€"
+            binding.itemPortfolioCurrentAssetValueTv.text = "Current price: ${currentAsset.priceEuro}€"
             binding.itemPortfolioAssetAmountTv.text = "Amount: ${myAsset.amount}"
             binding.itemPortfolioAssetCumulatedValueTv.text = "total value: ${(myAsset.amount * currentAsset.priceEuro.toDouble())}€"
             binding.root.setOnClickListener {

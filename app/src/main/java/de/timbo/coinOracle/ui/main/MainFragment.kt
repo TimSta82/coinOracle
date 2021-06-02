@@ -25,7 +25,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private val binding by viewBinding(FragmentMainBinding::bind)
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val mainViewModel by viewModels<MainFragmentViewModel>()
 
     private val cameraUtils by inject<CameraUtils>()
     private val imageUtils by inject<ImageUtils>()

@@ -27,6 +27,7 @@ class PortfolioFragment : BaseFragment(R.layout.fragment_portfolio) {
 
     private fun setData(portfolioWithCurrentAssetPrices: PortfolioWithCurrentAssetPrices) {
         binding.portfolioBudgetTv.text = "Available budget: ${portfolioWithCurrentAssetPrices.portfolioEntity.budget}€"
+        binding.portfolioCumulatedValueTv.text = "Cumulated value: ${portfolioWithCurrentAssetPrices.getCumulatedValueOfOwnedAssets()}€"
         binding.portfolioAssetsRv.adapter = PortfolioAdapter(portfolioWithCurrentAssetPrices) { myAsset -> showSnackBar(myAsset.asset.name) }
     }
 }
