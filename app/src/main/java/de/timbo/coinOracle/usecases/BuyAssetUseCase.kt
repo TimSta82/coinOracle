@@ -11,7 +11,7 @@ class BuyAssetUseCase : BaseUseCase() {
 
     suspend fun call(asset: Asset, budget: Double): BuyAssetResult {
         val portfolio = portfolioRepository.getPortfolio()
-        return if (portfolio.budget >= budget) {
+        return if (portfolio.budget >= budget && portfolio.budget > 0) {
             var amount = if (budget == -1.0) ((portfolio.budget / 3) / asset.priceEuro.toDouble()) else (budget / asset.priceEuro.toDouble())
             val oldAsset = portfolio.myAssets.find { myAsset -> myAsset.asset.id == asset.id }
             if (oldAsset != null) {
