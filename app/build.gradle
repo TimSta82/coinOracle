@@ -19,6 +19,12 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion = kotlin_version
+        kotlinCompilerExtensionVersion = "1.0.0-beta08"
     }
 
     signingConfigs {
@@ -103,6 +109,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += "-Xallow-jvm-ir-dependencies"
     }
 
     flavorDimensions("app")
@@ -175,6 +182,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.security:security-crypto:1.1.0-alpha03'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.0"
 
     /////DATABASE/////
     implementation 'androidx.room:room-ktx:2.3.0'
@@ -183,6 +191,20 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'androidx.room:room-compiler:2.3.0'
+
+    // COMPOSE
+    implementation("androidx.compose.ui:ui:$compose_version")
+    // Tooling support (Previews, etc.)
+    implementation("androidx.compose.ui:ui-tooling:$compose_version")
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation("androidx.compose.foundation:foundation:$compose_version")
+    // Material Design
+    implementation("androidx.compose.material:material:$compose_version")
+    // Material design icons
+    implementation("androidx.compose.material:material-icons-core:$compose_version")
+    implementation("androidx.compose.material:material-icons-extended:$compose_version")
+    // Integration with observables
+    implementation("androidx.compose.runtime:runtime-livedata:$compose_version")
 
     ////DEPENDENCY INJECTION////
     implementation 'org.koin:koin-android:2.2.2'
