@@ -19,12 +19,12 @@ class SellAssetUseCase : BaseUseCase() {
                 if (amount > availableAmount) {
                     SellAssetResult.NotEnoughFailure
                 } else {
-                    val newAmount = assetToSell.amount - amount
+                    val newAmount = if (amount == -1.0) 0.0 else assetToSell.amount - amount
                     val newMyAsset = assetToSell.copy(amount = newAmount, timeStamp = System.currentTimeMillis())
                     val updatedMyAssets = portfolio.myAssets.toMutableList()
                     updatedMyAssets.remove(assetToSell)
                     updatedMyAssets.add(newMyAsset)
-                    val newBudget = currentAsset.priceEuro.toDouble() * amount
+                    val newBudget = if (amount == -1.0) currentAsset.priceEuro.toDouble() * assetToSell.amount else currentAsset.priceEuro.toDouble() * amount
                     val newPortfolio = portfolio.copy(budget = newBudget, myAssets = updatedMyAssets, lastUpdate = System.currentTimeMillis())
                     portfolioRepository.updatePortfolio(newPortfolio)
                     SellAssetResult.Success

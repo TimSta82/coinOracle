@@ -4,11 +4,14 @@ import de.timbo.coinOracle.database.model.CorrelationEntity
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.repositories.CorrelationRepository
 import de.timbo.coinOracle.utils.Logger
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
 class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
 
     private val correlationRepository by inject<CorrelationRepository>()
+    private val buyAssetUseCase by inject<BuyAssetUseCase>()
+    private val sellAssetUseCase by inject<SellAssetUseCase>()
 
     fun call(assets: List<Asset>): CalculateAssetsAntiCorrelationResult {
         val winnerAssets = assets.filter { asset -> asset.changePercent24Hr.toDouble() >= 10.0 }.sortedWith(compareBy { it.changePercent24Hr }).reversed()
@@ -42,6 +45,7 @@ class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
         val antiCorrelations = mutableListOf<CorrelationEntity>()
         for (i in 0 until size) {
             Logger.debug("cors: size: $size")
+            considerTrading(winnerAssets[i], loserAssets[i]) // TODO create nice trading logic
             antiCorrelations.add(
                 CorrelationEntity(
                     winnerId = winnerAssets[i].id,
@@ -53,6 +57,13 @@ class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
         }
         Logger.debug("cors: $antiCorrelations")
         return antiCorrelations
+    }
+
+    private fun considerTrading(winner: Asset, loser: Asset) {
+        useCaseScope.launch {
+            sellAssetUseCase.call(winner, -1.0)
+            buyAssetUseCase.call(loser, -1.0)
+        }
     }
 
     sealed class CalculateAssetsAntiCorrelationResult {

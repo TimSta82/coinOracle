@@ -1,8 +1,8 @@
 package de.timbo.coinOracle.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import de.timbo.coinOracle.api.model.CurrencyPairResponseDto
 import de.timbo.coinOracle.database.model.PortfolioEntity
@@ -27,6 +27,7 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val calculateAssetsAntiCorrelationUseCase by inject<CalculateAssetsAntiCorrelationUseCase>()
     private val buyAssetUseCase by inject<BuyAssetUseCase>()
     private val sellAssetUseCase by inject<SellAssetUseCase>()
+    private val watchPortfolioFromDbUseCase by inject<WatchPortfolioFromDbUseCase>()
 
     private val _assetsFailure = SingleLiveEvent<Any>()
     val assetsFailure: LiveData<Any> = _assetsFailure
@@ -34,8 +35,7 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val _euroFailure = SingleLiveEvent<Any>()
     val euroFailure: LiveData<Any> = _euroFailure
 
-    private val _portfolio = MutableLiveData<PortfolioEntity>()
-    val portfolio: LiveData<PortfolioEntity> = _portfolio
+    val portfolio: LiveData<PortfolioEntity> = watchPortfolioFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
 
     private val _portFolioFailure = SingleLiveEvent<Any>()
     val portFolioFailure: LiveData<Any> = _portFolioFailure
@@ -81,11 +81,6 @@ class MainViewModel : ViewModel(), KoinComponent {
             when (val result = getAssetsUseCase.call(euro)) {
                 is BaseUseCase.UseCaseResult.Success -> {
                     result.resultObject.let { assets ->
-                        val assetsSize = assets.size
-                        val randomAsset = assets[Random.nextInt(assetsSize - 1)]
-
-                        sellAsset(randomAsset)
-                        buyAsset(randomAsset)
                         calculateCorrelation(assets)
                         saveAssetsUseCase.call(assets)
                     }
@@ -100,7 +95,7 @@ class MainViewModel : ViewModel(), KoinComponent {
             CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.NoCorrelationFailure -> Logger.debug("NoCorrelationFailure")
             CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.NoLosersFailure -> Logger.debug("NoLosersFailure")
             CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.NoWinnersFailure -> Logger.debug("NoWinnersFailure")
-            CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.Success -> Logger.debug("Success")
+            CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.Success -> Logger.debug("Correlation created successfully")
         }
     }
 
@@ -117,10 +112,9 @@ class MainViewModel : ViewModel(), KoinComponent {
     }
 
     private suspend fun buyAsset(asset: Asset) {
-        when (val result = buyAssetUseCase.call(asset, Random.nextDouble(1.0))) {
+        when (buyAssetUseCase.call(asset, Random.nextDouble(1.0))) {
             is BuyAssetUseCase.BuyAssetResult.Success -> {
                 Logger.debug("getAssets() call. ${asset.name} bought")
-                _portfolio.postValue(result.portfolio)
             }
             is BuyAssetUseCase.BuyAssetResult.NotEnoughBudget -> {
                 Logger.debug("getAssets() call. ${asset.name} NOT bought")

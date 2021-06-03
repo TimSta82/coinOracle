@@ -1,6 +1,5 @@
 package de.timbo.coinOracle.usecases
 
-import de.timbo.coinOracle.database.model.PortfolioEntity
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.model.MyAsset
 import de.timbo.coinOracle.repositories.PortfolioRepository
@@ -13,7 +12,7 @@ class BuyAssetUseCase : BaseUseCase() {
     suspend fun call(asset: Asset, budget: Double): BuyAssetResult {
         val portfolio = portfolioRepository.getPortfolio()
         return if (portfolio.budget >= budget) {
-            var amount = budget / asset.priceEuro.toDouble()
+            var amount = if (budget == -1.0) ((portfolio.budget / 3) / asset.priceEuro.toDouble()) else (budget / asset.priceEuro.toDouble())
             val oldAsset = portfolio.myAssets.find { myAsset -> myAsset.asset.id == asset.id }
             if (oldAsset != null) {
                 amount += oldAsset.amount
@@ -28,12 +27,12 @@ class BuyAssetUseCase : BaseUseCase() {
             portfolio.budget -= price
 
             portfolioRepository.updatePortfolio(portfolio)
-            BuyAssetResult.Success(portfolio)
+            BuyAssetResult.Success
         } else BuyAssetResult.NotEnoughBudget
     }
 
     sealed class BuyAssetResult {
-        data class Success(val portfolio: PortfolioEntity) : BuyAssetResult()
+        object Success : BuyAssetResult()
         object NotEnoughBudget : BuyAssetResult()
     }
 }
