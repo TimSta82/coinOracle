@@ -1,10 +1,7 @@
 package de.timbo.coinOracle.injection
 
 import androidx.room.Room
-import de.timbo.coinOracle.database.AssetsDb
-import de.timbo.coinOracle.database.KeyValueStore
-import de.timbo.coinOracle.database.KeyValueStoreEncrypted
-import de.timbo.coinOracle.database.PortfolioDb
+import de.timbo.coinOracle.database.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -30,6 +27,13 @@ val dataModule = module {
             .build()
     }
     single { get<AssetsDb>().assetsDao() }
+
+    single {
+        Room.databaseBuilder(androidContext(), CorrelationDb::class.java, CorrelationDb.CORRELATION_DB_NAME)
+            .fallbackToDestructiveMigration() // TODO: REMOVE DESTRUCTIVE FALLBACK BEFORE SHIPPING TO PROD!!!
+            .build()
+    }
+    single { get<CorrelationDb>().correlationDao() }
 
     single { KeyValueStore(androidContext()) }
     single { KeyValueStoreEncrypted(androidContext()) }

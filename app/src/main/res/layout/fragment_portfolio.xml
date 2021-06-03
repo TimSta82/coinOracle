@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/portfolio_background"
-    android:padding="@dimen/one_grid_unit">
+    android:background="@color/portfolio_background">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

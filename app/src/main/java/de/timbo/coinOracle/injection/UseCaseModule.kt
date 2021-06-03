@@ -17,4 +17,6 @@ val useCaseModule = module {
     single { SavePortfolioUseCase() }
     single { WatchPortfolioFromDbUseCase() }
     single { WatchPortfolioWithCurrentAssetPricesFromDbUseCase() }
+
+    single { CalculateAssetsAntiCorrelationUseCase() }
 }

@@ -24,6 +24,7 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val getEuroRateUseCase by inject<GetEuroRateUseCase>()
     private val saveAssetsUseCase by inject<SaveAssetsUseCase>()
     private val savePortfolioUseCase by inject<SavePortfolioUseCase>()
+    private val calculateAssetsAntiCorrelationUseCase by inject<CalculateAssetsAntiCorrelationUseCase>()
     private val buyAssetUseCase by inject<BuyAssetUseCase>()
     private val sellAssetUseCase by inject<SellAssetUseCase>()
 
@@ -77,7 +78,7 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     private fun getAssets(euro: CurrencyPairResponseDto) {
         launch {
-            when (val result = getAssetsUseCase.getAssets(euro)) {
+            when (val result = getAssetsUseCase.call(euro)) {
                 is BaseUseCase.UseCaseResult.Success -> {
                     result.resultObject.let { assets ->
                         val assetsSize = assets.size
@@ -85,12 +86,21 @@ class MainViewModel : ViewModel(), KoinComponent {
 
                         sellAsset(randomAsset)
                         buyAsset(randomAsset)
-
+                        calculateCorrelation(assets)
                         saveAssetsUseCase.call(assets)
                     }
                 }
                 else -> _assetsFailure.callAsync()
             }
+        }
+    }
+
+    private fun calculateCorrelation(assets: List<Asset>) {
+        when (val result = calculateAssetsAntiCorrelationUseCase.call(assets)) {
+            CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.NoCorrelationFailure -> Logger.debug("NoCorrelationFailure")
+            CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.NoLosersFailure -> Logger.debug("NoLosersFailure")
+            CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.NoWinnersFailure -> Logger.debug("NoWinnersFailure")
+            CalculateAssetsAntiCorrelationUseCase.CalculateAssetsAntiCorrelationResult.Success -> Logger.debug("Success")
         }
     }
 
