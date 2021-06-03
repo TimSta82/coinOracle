@@ -3,6 +3,7 @@ package de.timbo.coinOracle.usecases
 import de.timbo.coinOracle.database.model.CorrelationEntity
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.repositories.CorrelationRepository
+import de.timbo.coinOracle.utils.Logger
 import org.koin.core.component.inject
 
 class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
@@ -10,24 +11,48 @@ class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
     private val correlationRepository by inject<CorrelationRepository>()
 
     fun call(assets: List<Asset>): CalculateAssetsAntiCorrelationResult {
-        val winnerIds = assets.filter { it.changePercent24Hr.toDouble() >= 5.0 }
-        val loserIds = assets.filter { it.changePercent24Hr.toDouble() <= -5.0 }
+        val winnerAssets = assets.filter { asset -> asset.changePercent24Hr.toDouble() >= 10.0 }.sortedWith(compareBy { it.changePercent24Hr }).reversed()
+        val loserAssets = assets.filter { asset -> asset.changePercent24Hr.toDouble() <= -0.1 }.sortedWith(compareBy { it.changePercent24Hr }).reversed()
 
+        val antiCorrelations = getAntiCorrelations(winnerAssets, loserAssets)
         return when {
-            winnerIds.isNullOrEmpty() -> {
-                correlationRepository.saveAntiCorrelation(CorrelationEntity(winnerId = "-1", loserId = loserIds[0].id))
-                CalculateAssetsAntiCorrelationResult.NoWinnersFailure
+            antiCorrelations.isNullOrEmpty() -> when {
+                winnerAssets.isNullOrEmpty() -> {
+//                    correlationRepository.saveAntiCorrelation()
+                    CalculateAssetsAntiCorrelationResult.NoWinnersFailure
+                }
+                loserAssets.isNullOrEmpty() -> {
+//                    correlationRepository.saveAntiCorrelation()
+                    CalculateAssetsAntiCorrelationResult.NoLosersFailure
+                }
+                else -> CalculateAssetsAntiCorrelationResult.NoCorrelationFailure
             }
-            loserIds.isNullOrEmpty() -> {
-                correlationRepository.saveAntiCorrelation(CorrelationEntity(winnerId = winnerIds[0].id, loserId = "-1"))
-                CalculateAssetsAntiCorrelationResult.NoLosersFailure
-            }
-            winnerIds.isNullOrEmpty() && loserIds.isNullOrEmpty() -> CalculateAssetsAntiCorrelationResult.NoCorrelationFailure
             else -> {
-                correlationRepository.saveAntiCorrelation(CorrelationEntity(winnerId = winnerIds[0].id, loserId = loserIds[0].id))
+                correlationRepository.saveAntiCorrelation(antiCorrelations)
                 CalculateAssetsAntiCorrelationResult.Success
             }
         }
+    }
+
+    private fun getAntiCorrelations(winnerAssets: List<Asset>, loserAssets: List<Asset>): MutableList<CorrelationEntity> {
+        val wSize = winnerAssets.size
+        val lSize = loserAssets.size
+        val size = if (wSize >= lSize) lSize else wSize
+
+        val antiCorrelations = mutableListOf<CorrelationEntity>()
+        for (i in 0 until size) {
+            Logger.debug("cors: size: $size")
+            antiCorrelations.add(
+                CorrelationEntity(
+                    winnerId = winnerAssets[i].id,
+                    winnerPercentage24h = winnerAssets[i].changePercent24Hr,
+                    loserId = loserAssets[i].id,
+                    loserPercentage24h = loserAssets[i].changePercent24Hr
+                )
+            )
+        }
+        Logger.debug("cors: $antiCorrelations")
+        return antiCorrelations
     }
 
     sealed class CalculateAssetsAntiCorrelationResult {

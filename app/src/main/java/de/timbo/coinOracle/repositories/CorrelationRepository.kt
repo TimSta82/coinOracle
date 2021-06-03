@@ -9,9 +9,9 @@ class CorrelationRepository : BaseRepository() {
 
     private val dao by inject<CorrelationDao>()
 
-    fun saveAntiCorrelation(correlations: CorrelationEntity) {
+    fun saveAntiCorrelation(correlations: List<CorrelationEntity>) {
         repositoryScope.launch {
-            dao.insert(correlations)
+            dao.insertOrUpdate(correlations)
         }
     }
 }

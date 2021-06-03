@@ -54,7 +54,7 @@ class MainViewModel : ViewModel(), KoinComponent {
         job = viewModelScope.launch {
             while (true) {
                 getEuroRate()
-                delay(30000)
+                delay(60000)
             }
         }
     }
