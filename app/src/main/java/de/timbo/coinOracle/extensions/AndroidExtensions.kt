@@ -2,6 +2,7 @@ package de.timbo.coinOracle.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.view.View
@@ -96,3 +97,5 @@ fun <T, K, R> LiveData<T>.combineWith(
     }
     return result
 }
+
+fun Context.getColorStateListOneColor(@ColorRes colorRes: Int) = ColorStateList.valueOf(ContextCompat.getColor(this, colorRes))

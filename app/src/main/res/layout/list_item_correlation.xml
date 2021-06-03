@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/one_grid_unit"
+    android:layout_marginTop="@dimen/half_grid_unit"
+    android:layout_marginEnd="@dimen/one_grid_unit"
+    android:layout_marginBottom="@dimen/half_grid_unit"
+    android:elevation="@dimen/half_grid_unit"
+    app:cardCornerRadius="@dimen/half_grid_unit">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/one_grid_unit">
+
+        <TextView
+            android:id="@+id/item_winner_symbol_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BTC" />
+
+        <TextView
+            android:id="@+id/item_winner_percentage_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/two_grid_unit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toEndOf="@+id/item_winner_symbol_Tv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="15%" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/item_loser_symbol_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ADA" />
+
+        <TextView
+            android:id="@+id/item_loser_percentage_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/two_grid_unit"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_loser_symbol_Tv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="15%" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

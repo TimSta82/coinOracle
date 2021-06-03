@@ -9,9 +9,9 @@ import de.timbo.coinOracle.model.Asset
 data class CorrelationEntity(
     @PrimaryKey
     @ColumnInfo(name = "winner_asset")
-    val winnerAsset: Asset,
+    var winnerAsset: Asset,
     @ColumnInfo(name = "loser_asset")
-    val loserAsset: Asset,
+    var loserAsset: Asset
 ) {
     override fun toString() =
         "Anticorrelation:\n" +

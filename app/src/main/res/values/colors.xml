@@ -6,6 +6,8 @@
 
     <color name="assets_background">#672135</color>
     <color name="correlation_background">#ba1234</color>
+    <color name="correlation_loser">#D5002B</color>
+    <color name="correlation_winner">#16D820</color>
     <color name="settings_background">#f8ac12</color>
     <color name="trading_background">#2BB0E4</color>
     <color name="portfolio_background">#016187</color>
