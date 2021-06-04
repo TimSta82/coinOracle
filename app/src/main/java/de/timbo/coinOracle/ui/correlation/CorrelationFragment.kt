@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import de.timbo.coinOracle.R
-import de.timbo.coinOracle.database.model.CorrelationEntity
 import de.timbo.coinOracle.databinding.FragmentCorrelationBinding
 import de.timbo.coinOracle.extensions.showSnackBar
+import de.timbo.coinOracle.model.CorrelatingAssets
 import de.timbo.coinOracle.ui.BaseFragment
 import de.timbo.coinOracle.utils.viewBinding
 
@@ -28,14 +28,16 @@ class CorrelationFragment : BaseFragment(R.layout.fragment_correlation) {
     }
 
     private fun setObservers() {
-        viewModel.correlations.observe(viewLifecycleOwner, ::setCorrelations)
+        viewModel.correlations.observe(viewLifecycleOwner) { correlations -> viewModel.getCorrelatingAssets(correlations) }
+        viewModel.correlatingAssets.observe(viewLifecycleOwner) { list -> setCorrelatingAssets(list) }
+        viewModel.failure.observe(viewLifecycleOwner) { errorMessage -> showSnackBar(errorMessage) }
     }
 
-    private fun setCorrelations(correlations: List<CorrelationEntity>?) {
-        correlationAdapter.submitList(correlations)
+    private fun setCorrelatingAssets(correlatingAssets: List<CorrelatingAssets>) {
+        correlationAdapter.submitList(correlatingAssets)
     }
 
-    private fun onClick(correlationEntity: CorrelationEntity) {
-        showSnackBar("winner: ${correlationEntity.winnerAsset.name} - loser: ${correlationEntity.loserAsset.name}")
+    private fun onClick(correlatingAssets: CorrelatingAssets) {
+        showSnackBar("winner: ${correlatingAssets.winnerAsset.name} - loser: ${correlatingAssets.loserAsset.name}")
     }
 }

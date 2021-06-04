@@ -22,4 +22,6 @@ class AssetsRepository : BaseRepository() {
     }
 
     fun watchAllAssets(): Flow<List<AssetEntity>> = assetDao.watchAll()
+
+    suspend fun getAssetsByIdsFromDb(assetIds: List<String>) = assetDao.getAssetsByIds(assetIds)
 }

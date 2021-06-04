@@ -44,8 +44,8 @@ class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
             Logger.debug("cors: size: $size")
             antiCorrelations.add(
                 CorrelationEntity(
-                    winnerAsset = winnerAssets[i],
-                    loserAsset = loserAssets[i]
+                    winnerAssetId = winnerAssets[i].id,
+                    loserAssetId = loserAssets[i].id
                 )
             )
         }

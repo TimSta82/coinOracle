@@ -11,6 +11,7 @@ val useCaseModule = module {
     single { GetAssetHistoryUseCase() }
     single { SaveAssetsUseCase() }
     single { WatchAssetsFromDbUseCase() }
+    single { GetAssetsByIdsFromDbUseCase() }
 
     single { BuyAssetUseCase() }
     single { SellAssetUseCase() }

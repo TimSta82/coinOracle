@@ -1,7 +1,6 @@
 package de.timbo.coinOracle.repositories
 
 import de.timbo.coinOracle.database.dao.CorrelationDao
-import de.timbo.coinOracle.database.model.AssetEntity
 import de.timbo.coinOracle.database.model.CorrelationEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
