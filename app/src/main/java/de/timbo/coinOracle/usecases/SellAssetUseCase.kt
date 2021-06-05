@@ -1,5 +1,6 @@
 package de.timbo.coinOracle.usecases
 
+import de.timbo.coinOracle.database.model.TradeEntity
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.repositories.PortfolioRepository
 import org.koin.core.component.inject
@@ -7,6 +8,7 @@ import org.koin.core.component.inject
 class SellAssetUseCase : BaseUseCase() {
 
     private val portfolioRepository by inject<PortfolioRepository>()
+    private val saveTradeUseCase by inject<SaveTradeUseCase>()
 
     suspend fun call(currentAsset: Asset, amount: Double): SellAssetResult {
         val portfolio = portfolioRepository.getPortfolio()
@@ -27,6 +29,16 @@ class SellAssetUseCase : BaseUseCase() {
                     val newBudget = if (amount == -1.0) currentAsset.priceEuro.toDouble() * assetToSell.amount else currentAsset.priceEuro.toDouble() * amount
                     val newPortfolio = portfolio.copy(budget = newBudget, myAssets = updatedMyAssets, lastUpdate = System.currentTimeMillis())
                     portfolioRepository.updatePortfolio(newPortfolio)
+                    saveTradeUseCase.call(
+                        TradeEntity(
+                            assetId = currentAsset.id,
+                            assetSymbol = currentAsset.symbol,
+                            assetValue = currentAsset.priceEuro,
+                            amount = amount,
+                            timeStamp = System.currentTimeMillis(),
+                            isSold = true
+                        )
+                    )
                     SellAssetResult.Success
                 }
             } ?: SellAssetResult.Failure
