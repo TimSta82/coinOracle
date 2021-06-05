@@ -2,6 +2,7 @@ package de.timbo.coinOracle.ui.correlation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import de.timbo.coinOracle.R
 import de.timbo.coinOracle.databinding.FragmentCorrelationBinding
@@ -34,6 +35,8 @@ class CorrelationFragment : BaseFragment(R.layout.fragment_correlation) {
     }
 
     private fun setCorrelatingAssets(correlatingAssets: List<CorrelatingAssets>) {
+        binding.correlationEmptyTv.isVisible = correlatingAssets.isEmpty()
+        binding.correlationRv.isVisible = correlatingAssets.isEmpty().not()
         correlationAdapter.submitList(correlatingAssets)
     }
 

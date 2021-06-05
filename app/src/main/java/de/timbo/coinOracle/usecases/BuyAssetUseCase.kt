@@ -3,6 +3,7 @@ package de.timbo.coinOracle.usecases
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.model.MyAsset
 import de.timbo.coinOracle.repositories.PortfolioRepository
+import de.timbo.coinOracle.utils.Logger
 import org.koin.core.component.inject
 
 class BuyAssetUseCase : BaseUseCase() {
@@ -12,7 +13,9 @@ class BuyAssetUseCase : BaseUseCase() {
     suspend fun call(asset: Asset, budget: Double): BuyAssetResult {
         val portfolio = portfolioRepository.getPortfolio()
         return if (portfolio.budget >= budget && portfolio.budget > 0) {
-            var amount = if (budget == -1.0) ((portfolio.budget / 3) / asset.priceEuro.toDouble()) else (budget / asset.priceEuro.toDouble())
+            var amount = budget / asset.priceEuro.toDouble()
+            Logger.debug("Bought ${asset.name} for $budget€ and get $amount of shares at price ${asset.priceEuro}")
+
             val oldAsset = portfolio.myAssets.find { myAsset -> myAsset.asset.id == asset.id }
             if (oldAsset != null) {
                 amount += oldAsset.amount
@@ -22,10 +25,8 @@ class BuyAssetUseCase : BaseUseCase() {
             val myNewAsset = MyAsset(asset, amount)
             newAssets.add(myNewAsset)
 
-            val price = myNewAsset.amount * myNewAsset.purchasePriceEur.toDouble()
             portfolio.myAssets = newAssets
-            portfolio.budget -= price
-
+            portfolio.budget -= budget
             portfolioRepository.updatePortfolio(portfolio)
             BuyAssetResult.Success
         } else BuyAssetResult.NotEnoughBudget

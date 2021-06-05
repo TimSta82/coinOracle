@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import de.timbo.coinOracle.api.model.CurrencyPairResponseDto
+import de.timbo.coinOracle.database.model.CorrelationEntity
 import de.timbo.coinOracle.database.model.PortfolioEntity
 import de.timbo.coinOracle.extensions.launch
 import de.timbo.coinOracle.model.Asset
+import de.timbo.coinOracle.model.CorrelatingAssets
 import de.timbo.coinOracle.usecases.*
 import de.timbo.coinOracle.utils.Logger
 import de.timbo.coinOracle.utils.SingleLiveEvent
@@ -16,7 +18,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import kotlin.random.Random
 
 class MainViewModel : ViewModel(), KoinComponent {
 
@@ -25,9 +26,12 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val saveAssetsUseCase by inject<SaveAssetsUseCase>()
     private val savePortfolioUseCase by inject<SavePortfolioUseCase>()
     private val calculateAssetsAntiCorrelationUseCase by inject<CalculateAssetsAntiCorrelationUseCase>()
-    private val buyAssetUseCase by inject<BuyAssetUseCase>()
-    private val sellAssetUseCase by inject<SellAssetUseCase>()
     private val watchPortfolioFromDbUseCase by inject<WatchPortfolioFromDbUseCase>()
+
+    private val getAssetsByIdsFromDbUseCase by inject<GetAssetsByIdsFromDbUseCase>()
+    private val watchCorrelationsFromDbUseCase by inject<WatchCorrelationsFromDbUseCase>()
+    private val getPortfolioUseCase by inject<GetPortfolioUseCase>()
+    private val considerTradingUseCase by inject<ConsiderTradingUseCase>()
 
     private val _assetsFailure = SingleLiveEvent<Any>()
     val assetsFailure: LiveData<Any> = _assetsFailure
@@ -36,6 +40,10 @@ class MainViewModel : ViewModel(), KoinComponent {
     val euroFailure: LiveData<Any> = _euroFailure
 
     val portfolio: LiveData<PortfolioEntity> = watchPortfolioFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
+    val correlations: LiveData<List<CorrelationEntity>> = watchCorrelationsFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
+
+    private val _correlatingAssetsFailure = SingleLiveEvent<String>()
+    val correlatingAssetsFailure: LiveData<String> = _correlatingAssetsFailure
 
     private val _portFolioFailure = SingleLiveEvent<Any>()
     val portFolioFailure: LiveData<Any> = _portFolioFailure
@@ -54,7 +62,7 @@ class MainViewModel : ViewModel(), KoinComponent {
         job = viewModelScope.launch {
             while (true) {
                 getEuroRate()
-                delay(60000)
+                delay(15000)
             }
         }
     }
@@ -99,33 +107,33 @@ class MainViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    private suspend fun sellAsset(asset: Asset) {
-        when (sellAssetUseCase.call(asset, Random.nextDouble(1.0))) {
-            is SellAssetUseCase.SellAssetResult.Success -> {
-                Logger.debug("getAssets() called. ${asset.name} sold")
-                _sellSuccess.callAsync()
-            }
-            is SellAssetUseCase.SellAssetResult.NotEnoughFailure -> _sellFailure.postValue("Not enough amount")
-            is SellAssetUseCase.SellAssetResult.NoAssetsAvailableFailure -> _sellFailure.postValue("No assets available")
-            is SellAssetUseCase.SellAssetResult.Failure -> _sellFailure.postValue("Failure")
-        }
-    }
-
-    private suspend fun buyAsset(asset: Asset) {
-        when (buyAssetUseCase.call(asset, Random.nextDouble(1.0))) {
-            is BuyAssetUseCase.BuyAssetResult.Success -> {
-                Logger.debug("getAssets() call. ${asset.name} bought")
-            }
-            is BuyAssetUseCase.BuyAssetResult.NotEnoughBudget -> {
-                Logger.debug("getAssets() call. ${asset.name} NOT bought")
-                _portFolioFailure.callAsync()
-            }
-        }
-    }
-
     fun initPortfolio() {
         launch {
             savePortfolioUseCase.call()
+        }
+    }
+
+    fun getCorrelatingAssets(correlations: List<CorrelationEntity>?) {
+        launch {
+            if (correlations == null) {
+                _correlatingAssetsFailure.call()
+                return@launch
+            }
+            when (val result = getAssetsByIdsFromDbUseCase.call(correlations)) {
+                is GetAssetsByIdsFromDbUseCase.GetAssetsByIdsResult.Success -> {
+                    considerTrading(result.correlatingAssets)
+                }
+                is GetAssetsByIdsFromDbUseCase.GetAssetsByIdsResult.WinnerNullFailure -> _correlatingAssetsFailure.postValue("Winner Null error")
+                is GetAssetsByIdsFromDbUseCase.GetAssetsByIdsResult.LoserNullFailure -> _correlatingAssetsFailure.postValue("Loser Null error")
+            }
+        }
+    }
+
+    private fun considerTrading(correlatingAssets: List<CorrelatingAssets>) {
+        if (correlatingAssets.isEmpty()) return
+        launch {
+            val portfolio = getPortfolioUseCase.call()
+            considerTradingUseCase.call(portfolio, correlatingAssets)
         }
     }
 }

@@ -30,7 +30,7 @@ class CorrelationViewModel : ViewModel(), KoinComponent {
                 return@launch
             }
             when (val result = getAssetsByIdsFromDbUseCase.call(correlations)) {
-                is GetAssetsByIdsFromDbUseCase.GetAssetsByIdsResult.Success -> _correlatingAssets.postValue(result.correlatingsAssets)
+                is GetAssetsByIdsFromDbUseCase.GetAssetsByIdsResult.Success -> _correlatingAssets.postValue(result.correlatingAssets)
                 is GetAssetsByIdsFromDbUseCase.GetAssetsByIdsResult.WinnerNullFailure -> _failure.postValue("Winner Null error")
                 is GetAssetsByIdsFromDbUseCase.GetAssetsByIdsResult.LoserNullFailure -> _failure.postValue("Loser Null error")
             }

@@ -19,19 +19,19 @@ class GetAssetsByIdsFromDbUseCase : BaseUseCase() {
             }
         }
         val assets = assetsRepository.getAssetsByIdsFromDb(ids)
-        val c = mutableListOf<CorrelatingAssets>()
+        val correlatingAssetsList = mutableListOf<CorrelatingAssets>()
         correlations.forEach { correlation ->
             val winner = assets.find { assetEntity -> correlation.winnerAssetId == assetEntity.id }
             val loser = assets.find { assetEntity -> correlation.loserAssetId == assetEntity.id }
             if (winner == null) return GetAssetsByIdsResult.WinnerNullFailure
             if (loser == null) return GetAssetsByIdsResult.LoserNullFailure
-            c.add(CorrelatingAssets(Asset(winner), Asset(loser)))
+            correlatingAssetsList.add(CorrelatingAssets(Asset(winner), Asset(loser)))
         }
-        return GetAssetsByIdsResult.Success(c)
+        return GetAssetsByIdsResult.Success(correlatingAssetsList)
     }
 
     sealed class GetAssetsByIdsResult {
-        data class Success(val correlatingsAssets: List<CorrelatingAssets>) : GetAssetsByIdsResult()
+        data class Success(val correlatingAssets: List<CorrelatingAssets>) : GetAssetsByIdsResult()
         object WinnerNullFailure : GetAssetsByIdsResult()
         object LoserNullFailure : GetAssetsByIdsResult()
     }

@@ -16,7 +16,7 @@ class SavePortfolioUseCase : BaseUseCase() {
             portfolio = portfolioRepository.getPortfolio()
         } else {
             val now = System.currentTimeMillis()
-            portfolio = PortfolioEntity("1", now, 10.0, emptyList())
+            portfolio = PortfolioEntity("1", now, 100.0, emptyList())
             keyValueStore.isPortfolioInitialized = true
         }
         portfolioRepository.updatePortfolio(portfolio)

@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/one_grid_unit"
-    android:layout_marginTop="@dimen/one_grid_unit"
-    android:layout_marginEnd="@dimen/one_grid_unit"
-    android:layout_marginBottom="@dimen/one_grid_unit"
+    android:layout_marginTop="@dimen/half_grid_unit"
+    android:layout_marginBottom="@dimen/half_grid_unit"
     android:elevation="@dimen/half_grid_unit"
     app:cardCornerRadius="@dimen/half_grid_unit">
 
