@@ -2,6 +2,7 @@ package de.timbo.coinOracle.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.view.View
@@ -12,6 +13,8 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
@@ -80,3 +83,19 @@ fun Context.isNetworkConnected(): Boolean {
         } ?: false
     }
 }
+
+fun <T, K, R> LiveData<T>.combineWith(
+    liveData: LiveData<K>,
+    block: (T?, K?) -> R
+): LiveData<R> {
+    val result = MediatorLiveData<R>()
+    result.addSource(this) {
+        result.value = block(this.value, liveData.value)
+    }
+    result.addSource(liveData) {
+        result.value = block(this.value, liveData.value)
+    }
+    return result
+}
+
+fun Context.getColorStateListOneColor(@ColorRes colorRes: Int) = ColorStateList.valueOf(ContextCompat.getColor(this, colorRes))

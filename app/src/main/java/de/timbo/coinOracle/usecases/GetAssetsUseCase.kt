@@ -10,7 +10,7 @@ class GetAssetsUseCase : BaseUseCase() {
 
     private val assetsRepository by inject<AssetsRepository>()
 
-    suspend fun getAssets(euro: CurrencyPairResponseDto): UseCaseResult<List<Asset>> {
+    suspend fun call(euro: CurrencyPairResponseDto): UseCaseResult<List<Asset>> {
         return when (val result = assetsRepository.getAssets()) {
             is ResponseEvaluator.Result.Success -> {
                 result.response.body()?.let { assetsDto ->

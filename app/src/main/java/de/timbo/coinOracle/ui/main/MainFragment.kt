@@ -10,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import de.timbo.coinOracle.R
-import de.timbo.coinOracle.database.model.QuestionEntity
 import de.timbo.coinOracle.databinding.FragmentMainBinding
 import de.timbo.coinOracle.extensions.showSnackBar
 import de.timbo.coinOracle.ui.BaseFragment
@@ -26,7 +25,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private val binding by viewBinding(FragmentMainBinding::bind)
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val mainViewModel by viewModels<MainFragmentViewModel>()
 
     private val cameraUtils by inject<CameraUtils>()
     private val imageUtils by inject<ImageUtils>()
@@ -43,26 +42,17 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private fun setObservers() {
         mainViewModel.counter.observe(viewLifecycleOwner, ::setCounter)
-        mainViewModel.downloadError.observe(viewLifecycleOwner, ::showSnackBar)
-        mainViewModel.questionEntityLiveData.observe(viewLifecycleOwner, ::showQuestionResult)
-        mainViewModel.downloadSuccess.observe(viewLifecycleOwner, { showSnackBar(R.string.download_success) })
     }
 
     private fun setCounter(value: Int) {
         binding.welcomeTv.text = value.toString()
     }
 
-    private fun showQuestionResult(questionEntityList: List<QuestionEntity>) {
-        binding.questionsIv.text = questionEntityList.toString()
-    }
-
     private fun setClickListeners() {
         binding.counterBtn.setOnClickListener { incrementCounter() }
-        binding.loadQuestionsBtn.setOnClickListener { refreshQuestionsFromApi() }
         binding.takePhotoBtn.setOnClickListener { checkForPermissionAndTakePhoto() }
     }
 
-    private fun refreshQuestionsFromApi() = mainViewModel.makeApiCall()
     private fun incrementCounter() = mainViewModel.onIncrementCounter()
 
     private fun checkForPermissionAndTakePhoto() {

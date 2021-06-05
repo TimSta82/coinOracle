@@ -9,10 +9,15 @@ class KeyValueStore(context: Context) {
 
     private companion object {
         const val EXAMPLE = "EXAMPLE"
+        const val KEY_PORTFOLIO_INIT = "KEY_PORTFOLIO_INIT"
     }
 
     private val sharedPreferencesReader: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
     private val sharedPreferencesWriter: SharedPreferences.Editor = sharedPreferencesReader.edit()
+
+    var isPortfolioInitialized: Boolean
+        get() = getBoolean(KEY_PORTFOLIO_INIT, false)
+        set(value) = putBoolean(KEY_PORTFOLIO_INIT, value)
 
     var example: Boolean
         get() = getBoolean(EXAMPLE, false)

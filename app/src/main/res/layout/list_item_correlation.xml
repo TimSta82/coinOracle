@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/half_grid_unit"
+    android:layout_marginBottom="@dimen/half_grid_unit"
+    android:elevation="@dimen/half_grid_unit"
+    app:cardCornerRadius="@dimen/half_grid_unit">
+
+    <RelativeLayout
+        android:padding="@dimen/one_grid_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_winner_symbol_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            tools:text="BTC" />
+
+        <TextView
+            android:id="@+id/item_winner_percentage_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/two_grid_unit"
+            android:layout_toEndOf="@id/item_winner_symbol_Tv"
+            tools:text="15%" />
+
+        <TextView
+            android:id="@+id/item_loser_percentage_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            tools:text="15%" />
+
+        <TextView
+            android:id="@+id/item_loser_symbol_Tv"
+            style="@style/Text.ListItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/two_grid_unit"
+            android:layout_toStartOf="@id/item_loser_percentage_Tv"
+            tools:text="ADA" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
