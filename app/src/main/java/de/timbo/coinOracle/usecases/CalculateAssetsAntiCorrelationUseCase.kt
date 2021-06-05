@@ -4,11 +4,13 @@ import de.timbo.coinOracle.database.model.CorrelationEntity
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.repositories.CorrelationRepository
 import de.timbo.coinOracle.utils.Logger
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
 class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
 
     private val correlationRepository by inject<CorrelationRepository>()
+    private val deleteOutdatedCorrelationsUseCase by inject<DeleteOutdatedCorrelationsUseCase>()
 
     fun call(assets: List<Asset>): CalculateAssetsAntiCorrelationResult {
         val winnerAssets = assets.filter { asset -> asset.changePercent24Hr.toDouble() >= 10.0 }.sortedWith(compareBy { it.changePercent24Hr }).reversed()
@@ -28,6 +30,9 @@ class CalculateAssetsAntiCorrelationUseCase : BaseUseCase() {
                 else -> CalculateAssetsAntiCorrelationResult.NoCorrelationFailure
             }
             else -> {
+                useCaseScope.launch {
+                    deleteOutdatedCorrelationsUseCase.call()
+                }
                 correlationRepository.saveAntiCorrelation(antiCorrelations)
                 CalculateAssetsAntiCorrelationResult.Success
             }

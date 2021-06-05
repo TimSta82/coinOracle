@@ -16,5 +16,7 @@ class CorrelationRepository : BaseRepository() {
         }
     }
 
+    suspend fun deleteAll() = dao.deleteAll()
+
     fun watchAllCorrelations(): Flow<List<CorrelationEntity>> = dao.watchAll()
 }

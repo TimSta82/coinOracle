@@ -10,4 +10,7 @@ abstract class CorrelationDao : BaseDao<CorrelationEntity>() {
 
     @Query("SELECT * FROM CorrelationEntity")
     abstract fun watchAll(): Flow<List<CorrelationEntity>>
+
+    @Query("DELETE FROM CorrelationEntity")
+    abstract suspend fun deleteAll()
 }

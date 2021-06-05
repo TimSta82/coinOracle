@@ -12,8 +12,5 @@ data class CorrelationEntity(
     @ColumnInfo(name = "loser_asset_id")
     var loserAssetId: String
 ) {
-    override fun toString() =
-        "Anticorrelation:\n" +
-            "wId: $winnerAssetId" +
-            "lId: $loserAssetId\n"
+    override fun toString() = "Anticorrelation:\nwId: $winnerAssetId lId: $loserAssetId\n"
 }
