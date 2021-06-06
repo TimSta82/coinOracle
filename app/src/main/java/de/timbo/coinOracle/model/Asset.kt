@@ -70,8 +70,8 @@ data class Asset(
         explorer = explorer
     )
 
-    fun getPriceEuro(rate: Double): Asset {
-        val price = priceUsd.toDouble() * rate
+    fun getPriceEuro(rate: Double?): Asset {
+        val price = priceUsd.toDouble() * (rate ?: -1.0)
         return copy(
             priceEuro = price.toString()
         )

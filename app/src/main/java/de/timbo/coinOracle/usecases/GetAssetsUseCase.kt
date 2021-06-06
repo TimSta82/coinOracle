@@ -15,7 +15,9 @@ class GetAssetsUseCase : BaseUseCase() {
             is ResponseEvaluator.Result.Success -> {
                 result.response.body()?.let { assetsDto ->
                     val assets = assetsDto.assets?.map { dto ->
-                        Asset(dto).getPriceEuro(euro.conversionRate!!)
+                        euro.conversionRate?.let {
+                            Asset(dto).getPriceEuro(it)
+                        } ?: Asset(dto).getPriceEuro(-1.0)
                     }
                     assets?.let {
                         UseCaseResult.Success(assets)

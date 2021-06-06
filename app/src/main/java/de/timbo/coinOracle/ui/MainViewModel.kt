@@ -36,8 +36,8 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val _assetsFailure = SingleLiveEvent<Any>()
     val assetsFailure: LiveData<Any> = _assetsFailure
 
-    private val _euroFailure = SingleLiveEvent<Any>()
-    val euroFailure: LiveData<Any> = _euroFailure
+    private val _euroFailureMessage = SingleLiveEvent<String>()
+    val euroFailureMessage: LiveData<String> = _euroFailureMessage
 
     val portfolio: LiveData<PortfolioEntity> = watchPortfolioFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
     val correlations: LiveData<List<CorrelationEntity>> = watchCorrelationsFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
@@ -62,7 +62,7 @@ class MainViewModel : ViewModel(), KoinComponent {
         job = viewModelScope.launch {
             while (true) {
                 getEuroRate()
-                delay(15000)
+                delay(60000)
             }
         }
     }
@@ -75,11 +75,14 @@ class MainViewModel : ViewModel(), KoinComponent {
     fun getEuroRate() {
         launch {
             when (val result = getEuroRateUseCase.call()) {
-                is BaseUseCase.UseCaseResult.Success -> {
-                    val euro = result.resultObject
+                is GetEuroRateUseCase.GetEuroRateResult.Success -> {
+                    val euro = result.result
                     getAssets(euro)
                 }
-                else -> _euroFailure.callAsync()
+                is GetEuroRateUseCase.GetEuroRateResult.RateLimitReached -> {
+                    getAssets(CurrencyPairResponseDto.getDefaultCurrency())
+                }
+                else -> _euroFailureMessage.callAsync()
             }
         }
     }
