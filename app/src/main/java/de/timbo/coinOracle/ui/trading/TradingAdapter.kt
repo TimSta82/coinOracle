@@ -26,12 +26,7 @@ class TradingAdapter(private val trades: List<TradeEntity>, private val onTradeC
     inner class TradingViewHolder(private val binding: ListItemTradeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(trade: TradeEntity) {
             trade.isSold.let {
-                binding.itemTradeSymbolTv.setTextColor(itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought))
-                binding.itemTradeTitleTv.setTextColor(itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought))
-                binding.itemTradeAssetValueTv.setTextColor(itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought))
-                binding.itemTradeAssetAmountTv.setTextColor(itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought))
-                binding.itemTradeAssetPriceTv.setTextColor(itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought))
-                binding.itemTradeDateTv.setTextColor(itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought))
+                binding.root.backgroundTintList = itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought)
             }
             binding.itemTradeSymbolTv.text = trade.assetSymbol
             binding.itemTradeTitleTv.text = trade.assetId
