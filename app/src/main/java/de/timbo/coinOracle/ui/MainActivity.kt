@@ -37,6 +37,7 @@ class MainActivity : BaseActivity() {
         viewModel.euroFailureMessage.observe(this) { showError("Failed loading currency exchange rate") }
         viewModel.assetsFailure.observe(this) { showError("Failed loading assets") }
         viewModel.portfolio.observe(this) { portfolioEntity -> Logger.debug("Portfolio: $portfolioEntity") }
+        viewModel.assets.observe(this) { assets -> viewModel.considerSomething(assets)}
         viewModel.portFolioFailure.observe(this) { showError("Unable to buy something") }
         viewModel.correlations.observe(this) { correlations -> viewModel.getCorrelatingAssets(correlations) }
         viewModel.correlatingAssetsFailure.observe(this) { showError("Something wrong with correlating assets") }

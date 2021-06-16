@@ -24,14 +24,17 @@ class MainViewModel : ViewModel(), KoinComponent {
     private val getAssetsUseCase by inject<GetAssetsUseCase>()
     private val getEuroRateUseCase by inject<GetEuroRateUseCase>()
     private val saveAssetsUseCase by inject<SaveAssetsUseCase>()
+    private val watchAssetsFromDbUseCase by inject<WatchAssetsFromDbUseCase>()
     private val savePortfolioUseCase by inject<SavePortfolioUseCase>()
-    private val calculateAssetsAntiCorrelationUseCase by inject<CalculateAssetsAntiCorrelationUseCase>()
     private val watchPortfolioFromDbUseCase by inject<WatchPortfolioFromDbUseCase>()
+    private val considerUseCase by inject<ConsiderUseCase>()
+
+    private val calculateAssetsAntiCorrelationUseCase by inject<CalculateAssetsAntiCorrelationUseCase>()
 
     private val getAssetsByIdsFromDbUseCase by inject<GetAssetsByIdsFromDbUseCase>()
     private val watchCorrelationsFromDbUseCase by inject<WatchCorrelationsFromDbUseCase>()
     private val getPortfolioUseCase by inject<GetPortfolioUseCase>()
-    private val considerTradingUseCase by inject<ConsiderTradingUseCase>()
+    private val considerTradingUseCase by inject<ConsiderConvertAssetUseCase>()
 
     private val _assetsFailure = SingleLiveEvent<Any>()
     val assetsFailure: LiveData<Any> = _assetsFailure
@@ -41,6 +44,7 @@ class MainViewModel : ViewModel(), KoinComponent {
 
     val portfolio: LiveData<PortfolioEntity> = watchPortfolioFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
     val correlations: LiveData<List<CorrelationEntity>> = watchCorrelationsFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
+    val assets: LiveData<List<Asset>> = watchAssetsFromDbUseCase.call().asLiveData(viewModelScope.coroutineContext)
 
     private val _correlatingAssetsFailure = SingleLiveEvent<String>()
     val correlatingAssetsFailure: LiveData<String> = _correlatingAssetsFailure
@@ -92,7 +96,7 @@ class MainViewModel : ViewModel(), KoinComponent {
             when (val result = getAssetsUseCase.call(euro)) {
                 is BaseUseCase.UseCaseResult.Success -> {
                     result.resultObject.let { assets ->
-                        calculateCorrelation(assets)
+//                        calculateCorrelation(assets)
                         saveAssetsUseCase.call(assets)
                     }
                 }
@@ -138,5 +142,16 @@ class MainViewModel : ViewModel(), KoinComponent {
             val portfolio = getPortfolioUseCase.call()
             considerTradingUseCase.call(portfolio, correlatingAssets)
         }
+    }
+
+    fun considerSomething(assets: List<Asset>) {
+        launch {
+            portfolio.value?.let { portfolio ->
+                considerUseCase.call(portfolio, assets)
+            }
+        }
+        // sell - compare with history with owned assets, keep fee in mind
+        // buy - check if 24h percentage is negative, then compare with history, keep fee in mind
+        // convert - if correlation exists, ignore fee
     }
 }
