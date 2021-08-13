@@ -24,7 +24,7 @@ class ConsiderUseCase : BaseUseCase() {
             assets.find { asset ->
                 myAsset.asset.id == asset.id
             }
-        }.map { it?.id ?: "-1" }
+        }.mapNotNull { it?.id }
 
         when (val result = getAssetsHistory(ownedAssetIdsForHistoryCheck)) {
             is UseCaseResult.Success -> {
@@ -56,8 +56,8 @@ class ConsiderUseCase : BaseUseCase() {
         }
 
         /** check market */
-        val allOtherAssetIds = assets.map { asset ->
-            ownedAssetIdsForHistoryCheck.find { asset.id != it } ?: "-1"
+        val allOtherAssetIds = assets.mapNotNull { asset ->
+            ownedAssetIdsForHistoryCheck.find { id -> asset.id != id }
         }
         when (val result = getAssetsHistory(allOtherAssetIds)) {
             is UseCaseResult.Success -> {

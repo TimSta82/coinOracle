@@ -5,6 +5,7 @@ import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import de.timbo.coinOracle.R
 import de.timbo.coinOracle.databinding.FragmentAssetDetailsBinding
 import de.timbo.coinOracle.ui.BaseFragment
+import de.timbo.coinOracle.ui.bottomsheet.TradeBottomMenuFragment
 import de.timbo.coinOracle.utils.viewBinding
 import java.math.RoundingMode
 import java.sql.Date
@@ -26,6 +28,7 @@ import kotlin.collections.ArrayList
 class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 
     private val binding by viewBinding(FragmentAssetDetailsBinding::bind)
+    private val viewModel by viewModels<AssetDetailsViewModel>()
     private val navArgs by navArgs<AssetDetailsFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,6 +38,20 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 
         setChart()
         setData()
+        setClickListeners()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        viewModel.onTradeButtonClicked.observe(viewLifecycleOwner) { toggleTradeMenu() }
+    }
+
+    private fun toggleTradeMenu() {
+        TradeBottomMenuFragment.createInstance().show(childFragmentManager, TradeBottomMenuFragment::class.java.canonicalName)
+    }
+
+    private fun setClickListeners() {
+        binding.assetDetailTradeBtn.setOnClickListener { viewModel.toggleTradeMenu() }
     }
 
     private fun setChart() {

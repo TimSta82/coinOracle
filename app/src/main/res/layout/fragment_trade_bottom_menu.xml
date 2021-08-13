@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/one_grid_unit"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_bottom_menu_gradient">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_bottom_menu_buy_Btn"
+        android:text="@string/trade_bottom_menu_buy_button_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_bottom_menu_sell_Btn"
+        android:text="@string/trade_bottom_menu_sell_button_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_bottom_menu_convert_Btn"
+        android:text="@string/trade_bottom_menu_convert_button_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
