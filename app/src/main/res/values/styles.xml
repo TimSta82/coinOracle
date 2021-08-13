@@ -31,4 +31,17 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="InputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="errorIconDrawable">@null</item>
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textColorHint">@color/black_40</item>
+    </style>
+
 </resources>

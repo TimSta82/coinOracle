@@ -1,4 +1,4 @@
-package de.timbo.coinOracle.ui.bottomsheet
+package de.timbo.coinOracle.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

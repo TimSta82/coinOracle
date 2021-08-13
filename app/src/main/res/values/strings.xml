@@ -10,5 +10,7 @@
     <string name="trade_bottom_menu_buy_button_text">Kaufen</string>
     <string name="trade_bottom_menu_sell_button_text">Verkaufen</string>
     <string name="trade_bottom_menu_convert_button_text">Konvertieren</string>
+    <string name="trade_asset_confirm_button_text">Bestätigen</string>
+    <string name="trade_asset_max_button_text">Maximum</string>
 
 </resources>

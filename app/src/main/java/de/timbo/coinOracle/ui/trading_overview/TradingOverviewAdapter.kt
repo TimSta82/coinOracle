@@ -1,4 +1,4 @@
-package de.timbo.coinOracle.ui.trading
+package de.timbo.coinOracle.ui.trading_overview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +9,8 @@ import de.timbo.coinOracle.databinding.ListItemTradeBinding
 import de.timbo.coinOracle.extensions.convertLongToTime
 import de.timbo.coinOracle.extensions.getColorStateListOneColor
 import de.timbo.coinOracle.extensions.roundOffDecimal
-import java.time.LocalDateTime
 
-class TradingAdapter(private val trades: List<TradeEntity>, private val onTradeClick: (TradeEntity) -> Unit) : RecyclerView.Adapter<TradingAdapter.TradingViewHolder>() {
+class TradingOverviewAdapter(private val trades: List<TradeEntity>, private val onTradeClick: (TradeEntity) -> Unit) : RecyclerView.Adapter<TradingOverviewAdapter.TradingViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TradingViewHolder {
         return TradingViewHolder(ListItemTradeBinding.inflate(LayoutInflater.from(parent.context), parent, false))

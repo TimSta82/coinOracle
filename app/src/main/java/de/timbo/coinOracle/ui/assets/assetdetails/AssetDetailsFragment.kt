@@ -17,7 +17,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import de.timbo.coinOracle.R
 import de.timbo.coinOracle.databinding.FragmentAssetDetailsBinding
 import de.timbo.coinOracle.ui.BaseFragment
-import de.timbo.coinOracle.ui.bottomsheet.TradeBottomMenuFragment
 import de.timbo.coinOracle.utils.viewBinding
 import java.math.RoundingMode
 import java.sql.Date
@@ -47,7 +46,7 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
     }
 
     private fun toggleTradeMenu() {
-        TradeBottomMenuFragment.createInstance().show(childFragmentManager, TradeBottomMenuFragment::class.java.canonicalName)
+        TradeAssetBottomMenuFragment.createInstance(navArgs.assetDetails.asset).show(childFragmentManager, TradeAssetBottomMenuFragment::class.java.canonicalName)
     }
 
     private fun setClickListeners() {

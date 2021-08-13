@@ -36,6 +36,9 @@
         <argument
             android:name="assetDetails"
             app:argType="de.timbo.coinOracle.model.AssetDetails" />
+        <action
+            android:id="@+id/action_assetDetailsFragment_to_tradeAssetFragment"
+            app:destination="@id/tradeAssetFragment" />
     </fragment>
     <fragment
         android:id="@+id/portfolioFragment"
@@ -44,8 +47,17 @@
         tools:layout="@layout/fragment_portfolio" />
     <fragment
         android:id="@+id/tradingFragment"
-        android:name="de.timbo.coinOracle.ui.trading.TradingFragment"
+        android:name="de.timbo.coinOracle.ui.trading_overview.TradingOverviewFragment"
         android:label="TradingFragment"
-        tools:layout="@layout/fragment_trading" />
+        tools:layout="@layout/fragment_trading_overview" />
+    <fragment
+        android:id="@+id/tradeAssetFragment"
+        tools:layout="@layout/fragment_trade_asset"
+        android:name="de.timbo.coinOracle.ui.assets.trade_asset.TradeAssetFragment"
+        android:label="TradeAssetFragment" >
+        <argument
+            android:name="asset"
+            app:argType="de.timbo.coinOracle.model.Asset" />
+    </fragment>
 
 </navigation>
