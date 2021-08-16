@@ -24,8 +24,8 @@ class TradingOverviewAdapter(private val trades: List<TradeEntity>, private val 
 
     inner class TradingViewHolder(private val binding: ListItemTradeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(trade: TradeEntity) {
-            trade.isSold.let {
-                binding.root.backgroundTintList = itemView.context.getColorStateListOneColor(if (it) R.color.trading_sold else R.color.trading_bought)
+            trade.isSold.let { isSold ->
+                binding.root.backgroundTintList = itemView.context.getColorStateListOneColor(if (isSold) R.color.trading_sold else R.color.trading_bought)
             }
             binding.itemTradeSymbolTv.text = trade.assetSymbol
             binding.itemTradeTitleTv.text = trade.assetId

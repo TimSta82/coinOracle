@@ -6,6 +6,7 @@ import de.timbo.coinOracle.model.MyAsset
 import de.timbo.coinOracle.repositories.PortfolioRepository
 import de.timbo.coinOracle.utils.Logger
 import org.koin.core.component.inject
+import kotlin.random.Random
 
 class BuyAssetUseCase : BaseUseCase() {
 
@@ -32,6 +33,7 @@ class BuyAssetUseCase : BaseUseCase() {
             portfolioRepository.updatePortfolio(portfolio)
             saveTradeUseCase.call(
                 TradeEntity(
+                    id = Random.nextInt(100000),
                     assetId = asset.id,
                     assetSymbol = asset.symbol,
                     assetValue = asset.priceEuro,

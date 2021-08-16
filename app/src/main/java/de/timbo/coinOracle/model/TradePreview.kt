@@ -5,5 +5,6 @@ data class TradePreview(
     val singlePrice: String,
     val totalPrice: Double,
     val totalAmount: Double,
+    val oldBudget: Double,
     val newBudget: Double
 )

@@ -7,7 +7,8 @@ import de.timbo.coinOracle.model.Asset
 
 @Entity
 data class TradeEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     @ColumnInfo(name = "asset_id")
     val assetId: String,
     @ColumnInfo(name = "asset_symbol")

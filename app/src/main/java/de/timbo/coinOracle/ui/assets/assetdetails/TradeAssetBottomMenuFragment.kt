@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import de.timbo.coinOracle.R
 import de.timbo.coinOracle.databinding.FragmentTradeAssetBottomMenuBinding
 import de.timbo.coinOracle.model.Asset
+import de.timbo.coinOracle.model.TradingType
 import de.timbo.coinOracle.ui.base.BaseBottomSheetDialogFragment
 import de.timbo.coinOracle.utils.viewBinding
 
@@ -25,7 +26,15 @@ class TradeAssetBottomMenuFragment(private val asset: Asset) : BaseBottomSheetDi
 
     private fun setOnClickListeners() {
         binding.tradeBottomMenuBuyBtn.setOnClickListener {
-            findNavController().navigate(AssetDetailsFragmentDirections.actionAssetDetailsFragmentToTradeAssetFragment(asset))
+            findNavController().navigate(AssetDetailsFragmentDirections.actionAssetDetailsFragmentToTradeAssetFragment(asset, TradingType.BUY))
+            onDismiss(requireDialog())
+        }
+        binding.tradeBottomMenuSellBtn.setOnClickListener {
+            findNavController().navigate(AssetDetailsFragmentDirections.actionAssetDetailsFragmentToTradeAssetFragment(asset, TradingType.SELL))
+            onDismiss(requireDialog())
+        }
+        binding.tradeBottomMenuConvertBtn.setOnClickListener {
+            findNavController().navigate(AssetDetailsFragmentDirections.actionAssetDetailsFragmentToTradeAssetFragment(asset, TradingType.CONVERT))
             onDismiss(requireDialog())
         }
     }

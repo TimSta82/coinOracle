@@ -19,4 +19,6 @@ class PortfolioRepository : BaseRepository() {
             portfolioDao.insertOrUpdate(portfolioEntity)
         }
     }
+
+    suspend fun deletePortfolio() = portfolioDao.deleteAll()
 }

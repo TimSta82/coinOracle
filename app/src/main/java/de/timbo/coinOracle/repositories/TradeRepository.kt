@@ -16,4 +16,6 @@ class TradeRepository : BaseRepository() {
     }
 
     fun watchAll() = dao.watchAll()
+
+    suspend fun deleteAllTrades() = dao.deleteAll()
 }

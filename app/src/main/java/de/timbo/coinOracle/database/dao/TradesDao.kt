@@ -11,4 +11,6 @@ abstract class TradesDao : BaseDao<TradeEntity>() {
     @Query("SELECT * FROM TradeEntity")
     abstract fun watchAll(): Flow<List<TradeEntity>>
 
+    @Query("DELETE FROM TradeEntity")
+    abstract suspend fun deleteAll()
 }

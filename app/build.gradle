@@ -10,7 +10,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "de.timbo.coinOracle"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode System.getenv("CI_PIPELINE_ID") as Integer ?: 1
         versionName "1.0"

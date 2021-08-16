@@ -13,4 +13,5 @@ abstract class CorrelationDao : BaseDao<CorrelationEntity>() {
 
     @Query("DELETE FROM CorrelationEntity")
     abstract suspend fun deleteAll()
+
 }

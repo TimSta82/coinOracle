@@ -28,4 +28,5 @@ val useCaseModule = module {
     single { SaveTradeUseCase() }
     single { WatchTradesUseCase() }
     single { ConsiderUseCase() }
+    single { ResetEverythingUseCase() }
 }
