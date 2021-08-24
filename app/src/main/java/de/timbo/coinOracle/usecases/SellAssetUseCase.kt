@@ -26,7 +26,7 @@ class SellAssetUseCase : BaseUseCase() {
                     val newMyAsset = assetToSell.copy(amount = newAmount, timeStamp = System.currentTimeMillis())
                     val updatedMyAssets = portfolio.myAssets.toMutableList()
                     updatedMyAssets.remove(assetToSell)
-                    updatedMyAssets.add(newMyAsset)
+                    if (newAmount != 0.0000000) updatedMyAssets.add(newMyAsset)
                     val newBudget = if (amount == -1.0) currentAsset.priceEuro.toDouble() * assetToSell.amount else currentAsset.priceEuro.toDouble() * amount
                     val newPortfolio = portfolio.copy(budget = portfolio.budget + newBudget, myAssets = updatedMyAssets, lastUpdate = System.currentTimeMillis())
                     portfolioRepository.updatePortfolio(newPortfolio)
