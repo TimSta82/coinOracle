@@ -22,22 +22,13 @@ class TradeAssetFragment : BaseFragment(R.layout.fragment_trade_asset) {
 
     private val binding by viewBinding(FragmentTradeAssetBinding::bind)
     private val args by navArgs<TradeAssetFragmentArgs>()
-    private val viewModel by viewModelsFactory { TradeAssetViewModel(args.asset) }
+    private val viewModel by viewModelsFactory { TradeAssetViewModel(args.asset, args.tradingType) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setClickListeners()
         setObservers()
         setEditTextViewListeners()
-        initView(args.tradingType)
-    }
-
-    private fun initView(tradingType: TradingType) {
-        when (tradingType) {
-            TradingType.BUY -> binding.tradeAssetConfirmBtn.text = "Kaufen"
-            TradingType.SELL -> binding.tradeAssetConfirmBtn.text = "Verkaufen"
-            TradingType.CONVERT -> binding.tradeAssetConfirmBtn.text = "Konvertieren"
-        }
     }
 
     private fun setEditTextViewListeners() {
@@ -46,6 +37,7 @@ class TradeAssetFragment : BaseFragment(R.layout.fragment_trade_asset) {
 
     private fun setObservers() {
         viewModel.currentAsset.observe(viewLifecycleOwner, ::setCurrentAsset)
+        viewModel.tradingType.observe(viewLifecycleOwner, ::initViewWithTradingType)
         viewModel.currentAssetAmount.observe(viewLifecycleOwner, ::setCurrentAssetAmount)
         viewModel.previewValues.observe(viewLifecycleOwner, ::setPreviewValues)
         viewModel.portfolio.observe(viewLifecycleOwner, ::setPortfolio)
@@ -53,6 +45,14 @@ class TradeAssetFragment : BaseFragment(R.layout.fragment_trade_asset) {
         viewModel.onNotEnoughAssetAmount.observe(viewLifecycleOwner, ::showErrorIndicator)
         viewModel.onSuccess.observe(viewLifecycleOwner) { findNavController().navigateUp() }
         viewModel.onFailure.observe(viewLifecycleOwner) { showSnackBar("Hat nicht geklappt") }
+    }
+
+    private fun initViewWithTradingType(tradingType: TradingType) {
+        when (tradingType) {
+            TradingType.BUY -> binding.tradeAssetConfirmBtn.text = "Kaufen"
+            TradingType.SELL -> binding.tradeAssetConfirmBtn.text = "Verkaufen"
+            TradingType.CONVERT -> binding.tradeAssetConfirmBtn.text = "Konvertieren"
+        }
     }
 
     private fun showErrorIndicator(hasError: Boolean) {
