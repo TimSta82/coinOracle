@@ -217,4 +217,5 @@ dependencies {
     // FANCY STUFF
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.sparrow007:carouselrecyclerview:1.2.1'
+    implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:3.0.0'
 }

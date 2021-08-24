@@ -16,4 +16,5 @@
     <dimen name="twelve_grid_unit">96dp</dimen>
 
     <dimen name="corner_radius">6dp</dimen>
+    <dimen name="trade_preview_values_card_height">250dp</dimen>
 </resources>

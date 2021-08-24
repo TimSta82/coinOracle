@@ -11,10 +11,15 @@ import de.timbo.coinOracle.usecases.BuyAssetUseCase
 import de.timbo.coinOracle.usecases.SellAssetUseCase
 import de.timbo.coinOracle.usecases.WatchPortfolioFromDbUseCase
 import de.timbo.coinOracle.utils.SingleLiveEvent
+import kotlinx.coroutines.delay
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class TradeAssetViewModel(private val asset: Asset, private val type: TradingType) : ViewModel(), KoinComponent {
+
+    companion object {
+        const val DEFAULT_ZERO = 0.0
+    }
 
     private val watchPortfolioFromDbUseCase by inject<WatchPortfolioFromDbUseCase>()
     private val buyAssetUseCase by inject<BuyAssetUseCase>()
@@ -46,57 +51,69 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
     private val _onFailure = SingleLiveEvent<Any>()
     val onFailure: LiveData<Any> = _onFailure
 
+    private val _onNavigateUp = SingleLiveEvent<Any>()
+    val onNavigateUp: LiveData<Any> = _onNavigateUp
+
+    private val _digits = SingleLiveEvent<Double>()
+    val digits : LiveData<Double> = _digits
+
     init {
         _currentAsset.value = asset
         _tradingType.value = type
     }
 
     fun calculatePreviewValues(amount: Editable?) {
-        if (amount.isNullOrEmpty()) return
-        when (type) {
-            TradingType.BUY -> calculateBuyPreview(amount)
-            TradingType.SELL -> calculateSellPreview(amount)
-            TradingType.CONVERT -> calculateConvertPreview(amount)
+//        if (amount.isNullOrEmpty()) return
+        amount?.let { amount1 ->
+            when (type) {
+                TradingType.BUY -> calculateBuyPreview(amount1)
+                TradingType.SELL -> calculateSellPreview(amount1)
+                TradingType.CONVERT -> calculateConvertPreview(amount1)
+            }
         }
     }
 
-    private fun calculateConvertPreview(amount: Editable) {
+    private fun calculateConvertPreview(amount: Editable?) {
 
 
     }
 
-    private fun calculateSellPreview(amount: Editable) {
-        val amountAsDouble = amount.toString().toDouble()
-        val priceTotal = (amountAsDouble) * asset.priceEuro.toDouble()
-        val currentAssetAmount = _currentAssetAmount.value ?: 0.0
-        val totalAmount = currentAssetAmount - amountAsDouble
-        val budget = portfolio.value?.budget ?: 0.0
-        _onNotEnoughAssetAmount.value = totalAmount < 0.0
-        _previewValues.value = TradePreview(
-            newAmount = amount.toString(),
-            singlePrice = asset.priceEuro,
-            totalPrice = priceTotal,
-            totalAmount = currentAssetAmount - amountAsDouble,
-            oldBudget = budget,
-            newBudget = (budget) + priceTotal
-        )
+    private fun calculateSellPreview(amount: Editable?) {
+        amount?.let { amount1 ->
+            val amountAsDouble = amount1.toString().toDouble()
+            val priceTotal = (amountAsDouble) * asset.priceEuro.toDouble()
+            val currentAssetAmount = _currentAssetAmount.value ?: DEFAULT_ZERO
+            val totalAmount = currentAssetAmount - amountAsDouble
+            val budget = portfolio.value?.budget ?: DEFAULT_ZERO
+            _onNotEnoughAssetAmount.value = totalAmount < DEFAULT_ZERO
+            _previewValues.value = TradePreview(
+                newAmount = amount1.toString(),
+                singlePrice = asset.priceEuro,
+                totalPrice = priceTotal,
+                totalAmount = currentAssetAmount - amountAsDouble,
+                oldBudget = budget,
+                newBudget = (budget) + priceTotal
+            )
+        }
     }
 
-    private fun calculateBuyPreview(amount: Editable) {
-        val amountAsDouble = amount.toString().toDouble()
-        val priceTotal = (amountAsDouble) * asset.priceEuro.toDouble()
-        val currentAssetAmount = _currentAssetAmount.value ?: 0.0
-        val budget = portfolio.value?.budget ?: 0.0
-        _onNotEnoughAssetAmount.value = amountAsDouble > currentAssetAmount
-        _onNotEnoughBudget.value = priceTotal > budget
-        _previewValues.value = TradePreview(
-            newAmount = amount.toString(),
-            singlePrice = asset.priceEuro,
-            totalPrice = priceTotal,
-            totalAmount = currentAssetAmount + amountAsDouble,
-            oldBudget = budget,
-            newBudget = (budget) - priceTotal
-        )
+    private fun calculateBuyPreview(amount: Editable?) {
+        amount?.let { amount1 ->
+            val amountAsDouble = amount1.toString().toDouble()
+            val priceTotal = (amountAsDouble) * asset.priceEuro.toDouble()
+            val currentAssetAmount = _currentAssetAmount.value ?: DEFAULT_ZERO
+            val budget = portfolio.value?.budget ?: DEFAULT_ZERO
+            _onNotEnoughAssetAmount.value = amountAsDouble > currentAssetAmount
+            _onNotEnoughBudget.value = priceTotal > budget
+            _previewValues.value = TradePreview(
+                newAmount = amount1.toString(),
+                singlePrice = asset.priceEuro,
+                totalPrice = priceTotal,
+                totalAmount = currentAssetAmount + amountAsDouble,
+                oldBudget = budget,
+                newBudget = (budget) - priceTotal
+            )
+        }
     }
 
     fun confirmTrade(tradingType: TradingType) {
@@ -140,9 +157,37 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
         if (portfolioEntity.myAssets.isNotEmpty()) {
             _currentAssetAmount.value = portfolioEntity.myAssets.firstOrNull { myAsset ->
                 myAsset.asset.id == asset.id
-            }?.amount ?: 0.0
+            }?.amount ?: DEFAULT_ZERO
         } else {
-            _currentAssetAmount.value = 0.0
+            _currentAssetAmount.value = DEFAULT_ZERO
         }
     }
+
+    fun navigateUp() {
+        launch {
+            delay(300L)
+            _onNavigateUp.callAsync()
+        }
+    }
+
+    fun getMax() {
+        when (type) {
+            TradingType.BUY -> prepareMaxPurchase()
+            TradingType.SELL -> prepareMaxSellout()
+            TradingType.CONVERT -> prepareMaxConversion()
+        }
+
+    }
+    private fun prepareMaxPurchase() {
+        val maxAmountToBuy = (portfolio.value?.budget ?: DEFAULT_ZERO) / asset.priceEuro.toDouble()
+        _digits.value = maxAmountToBuy
+    }
+
+
+    private fun prepareMaxSellout() {
+        val maxAmountToSell = portfolio.value?.myAssets?.firstOrNull { myAsset -> myAsset.asset.id == asset.id }?.amount ?: DEFAULT_ZERO
+        _digits.value = maxAmountToSell
+    }
+
+    private fun prepareMaxConversion() {}
 }

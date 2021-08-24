@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/trade_asset_preview_container_front"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/trade_preview_values_card_height"
+    android:elevation="@dimen/one_grid_unit"
+    app:cardCornerRadius="@dimen/two_grid_unit"
+    app:layout_constraintBottom_toTopOf="@+id/trade_asset_confirm_Btn"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/trade_asset_max_Btn">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/trade_asset_confirm_Btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trade_asset_max_Btn">
+
+        <TextView
+            android:id="@+id/trade_asset_preview_header_Tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/two_grid_unit"
+            android:gravity="center"
+            android:text="Vorschau" />
+
+        <TextView
+            android:id="@+id/trade_asset_preview_amount_Tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/two_grid_unit"
+            android:gravity="center"
+            android:text="neuer bestand" />
+
+        <TextView
+            android:id="@+id/trade_asset_preview_cost_Tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/two_grid_unit"
+            android:gravity="center"
+            android:text="kosten" />
+
+        <TextView
+            android:id="@+id/trade_asset_preview_new_saldo_Tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/two_grid_unit"
+            android:gravity="center"
+            android:text="neuer Saldo" />
+
+        <TextView
+            android:id="@+id/trade_asset_preview_new_total_amount_Tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/two_grid_unit"
+            android:gravity="center"
+            android:text="neuer Bestand" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
