@@ -33,7 +33,7 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.assetDetailsTv.text = navArgs.assetDetails.asset.name
+        binding.assetDetailsTv.text = navArgs.assetDetails.asset?.name ?: ""
 
         setChart()
         setData()
@@ -46,7 +46,9 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
     }
 
     private fun toggleTradeMenu() {
-        TradeAssetBottomMenuFragment.createInstance(navArgs.assetDetails.asset).show(childFragmentManager, TradeAssetBottomMenuFragment::class.java.canonicalName)
+        navArgs.assetDetails.asset?.let { asset ->
+            TradeAssetBottomMenuFragment.createInstance(asset).show(childFragmentManager, TradeAssetBottomMenuFragment::class.java.canonicalName)
+        }
     }
 
     private fun setClickListeners() {
@@ -112,7 +114,7 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 //            }
             if (assetHistoryData != null) values.add(Entry(assetHistoryData.time?.toFloat() ?: -1F, assetHistoryData.priceUsd?.toFloat() ?: -1F))
         }
-        val set1 = LineDataSet(values, "${navArgs.assetDetails.asset.name}")
+        val set1 = LineDataSet(values, "${navArgs.assetDetails.asset?.name ?: ""}")
         set1.mode = LineDataSet.Mode.LINEAR
 //        set1.cubicIntensity = 0.2f
 

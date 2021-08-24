@@ -1,15 +1,16 @@
 package de.timbo.coinOracle.ui.assets
 
-import androidx.lifecycle.*
-import de.timbo.coinOracle.api.model.CurrencyPairResponseDto
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import de.timbo.coinOracle.extensions.launch
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.model.AssetDetails
-import de.timbo.coinOracle.usecases.*
+import de.timbo.coinOracle.usecases.BaseUseCase
+import de.timbo.coinOracle.usecases.GetAssetHistoryUseCase
+import de.timbo.coinOracle.usecases.WatchAssetsFromDbUseCase
 import de.timbo.coinOracle.utils.SingleLiveEvent
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

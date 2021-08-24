@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class AssetDetails(
-    val asset: Asset,
+    val asset: Asset?,
     val assetHistory: AssetHistoryDto
 ) : Parcelable
