@@ -28,7 +28,7 @@ class SellAssetUseCase : BaseUseCase() {
                     updatedMyAssets.remove(assetToSell)
                     updatedMyAssets.add(newMyAsset)
                     val newBudget = if (amount == -1.0) currentAsset.priceEuro.toDouble() * assetToSell.amount else currentAsset.priceEuro.toDouble() * amount
-                    val newPortfolio = portfolio.copy(budget = newBudget, myAssets = updatedMyAssets, lastUpdate = System.currentTimeMillis())
+                    val newPortfolio = portfolio.copy(budget = portfolio.budget + newBudget, myAssets = updatedMyAssets, lastUpdate = System.currentTimeMillis())
                     portfolioRepository.updatePortfolio(newPortfolio)
                     saveTradeUseCase.call(
                         TradeEntity(
