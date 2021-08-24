@@ -44,7 +44,11 @@
         android:id="@+id/portfolioFragment"
         android:name="de.timbo.coinOracle.ui.portfolio.PortfolioFragment"
         android:label="PortfolioFragment"
-        tools:layout="@layout/fragment_portfolio" />
+        tools:layout="@layout/fragment_portfolio" >
+        <action
+            android:id="@+id/action_portfolioFragment_to_assetDetailsFragment"
+            app:destination="@id/assetDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/tradingFragment"
         android:name="de.timbo.coinOracle.ui.trading_overview.TradingOverviewFragment"
