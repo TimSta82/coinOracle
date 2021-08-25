@@ -84,7 +84,6 @@ class ConsiderUseCase : BaseUseCase() {
                 }
             }
             else -> Logger.debug("no asset history available")
-
         }
     }
 

@@ -6,7 +6,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import de.timbo.coinOracle.R
 import de.timbo.coinOracle.databinding.FragmentPortfolioBinding
-import de.timbo.coinOracle.extensions.showSnackBar
 import de.timbo.coinOracle.model.AssetDetails
 import de.timbo.coinOracle.model.PortfolioWithCurrentAssetPrices
 import de.timbo.coinOracle.ui.BaseFragment

@@ -30,7 +30,7 @@ class TradingOverviewAdapter(private val trades: List<TradeEntity>, private val 
             binding.itemTradeSymbolTv.text = trade.assetSymbol
             binding.itemTradeTitleTv.text = trade.assetId
             binding.itemTradeAssetValueTv.text = "Asset value: ${trade.assetValue.toDouble().roundOffDecimal()}€"
-            binding.itemTradeAssetAmountTv.text = "Amount: ${trade.amount.toString()}"
+            binding.itemTradeAssetAmountTv.text = "Amount: ${trade.amount}"
             binding.itemTradeAssetPriceTv.text = "Price: ${(trade.amount * trade.assetValue.toDouble()).roundOffDecimal()}€"
             binding.itemTradeDateTv.text = "Date: ${trade.timeStamp.convertLongToTime()}"
             binding.root.setOnClickListener {

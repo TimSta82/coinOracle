@@ -1,9 +1,9 @@
-//package de.timbo.coinOracle.usecases
+// package de.timbo.coinOracle.usecases
 //
-//import kotlinx.coroutines.async
-//import kotlinx.coroutines.withContext
+// import kotlinx.coroutines.async
+// import kotlinx.coroutines.withContext
 //
-//class MultifetchUseCase {
+// class MultifetchUseCase {
 //
 //
 //    class GetAppointmentsUseCase : BaseUseCase() {
@@ -90,4 +90,4 @@
 //        }
 //    }
 //
-//}
+// }

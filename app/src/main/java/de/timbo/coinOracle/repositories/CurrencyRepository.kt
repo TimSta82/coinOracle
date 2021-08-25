@@ -1,6 +1,6 @@
 package de.timbo.coinOracle.repositories
 
-class CurrencyRepository : BaseRepository(){
+class CurrencyRepository : BaseRepository() {
 
     suspend fun getCurrencyExchangeRate(currency: String) = currencyApiCall { currencyApi.getCurrency(currency) }
 

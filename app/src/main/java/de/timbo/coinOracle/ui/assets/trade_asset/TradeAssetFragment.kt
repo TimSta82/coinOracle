@@ -88,7 +88,6 @@ class TradeAssetFragment : BaseFragment(R.layout.fragment_trade_asset) {
         } ?: run {
             binding.tradeAssetPreviewFlipper.isVisible = false
         }
-
     }
 
     private fun setCurrentAssetAmount(amount: Double) {

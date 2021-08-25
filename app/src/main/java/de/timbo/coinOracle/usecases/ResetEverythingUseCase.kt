@@ -14,7 +14,6 @@ class ResetEverythingUseCase : BaseUseCase() {
     private val savePortfolioUseCase by inject<SavePortfolioUseCase>()
     private val keyValueStore by inject<KeyValueStore>()
 
-
     suspend fun call() {
         portfolioRepository.deletePortfolio()
         correlationRepository.deleteAll()

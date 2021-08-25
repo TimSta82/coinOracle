@@ -55,7 +55,7 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
     val onNavigateUp: LiveData<Any> = _onNavigateUp
 
     private val _digits = SingleLiveEvent<Double?>()
-    val digits : LiveData<Double?> = _digits
+    val digits: LiveData<Double?> = _digits
 
     init {
         _currentAsset.value = asset
@@ -68,17 +68,14 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
             return
         }
         val a = amount.toString()
-            when (type) {
-                TradingType.BUY -> calculateBuyPreview(a)
-                TradingType.SELL -> calculateSellPreview(a)
-                TradingType.CONVERT -> calculateConvertPreview(a)
-            }
+        when (type) {
+            TradingType.BUY -> calculateBuyPreview(a)
+            TradingType.SELL -> calculateSellPreview(a)
+            TradingType.CONVERT -> calculateConvertPreview(a)
+        }
     }
 
-    private fun calculateConvertPreview(amount: String) {
-
-
-    }
+    private fun calculateConvertPreview(amount: String) {}
 
     private fun calculateSellPreview(amount: String) {
         amount.toDouble().let { amountAsDouble ->
@@ -122,7 +119,6 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
             TradingType.SELL -> sellAsset()
             TradingType.CONVERT -> convertAsset()
         }
-
     }
 
     private fun buyAsset() {
@@ -149,9 +145,7 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
         }
     }
 
-    private fun convertAsset() {
-
-    }
+    private fun convertAsset() {}
 
     fun initAmount(portfolioEntity: PortfolioEntity) {
         if (portfolioEntity.myAssets.isNotEmpty()) {
@@ -176,13 +170,12 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
             TradingType.SELL -> prepareMaxSellout()
             TradingType.CONVERT -> prepareMaxConversion()
         }
-
     }
+
     private fun prepareMaxPurchase() {
         val maxAmountToBuy = (portfolio.value?.budget ?: DEFAULT_ZERO) / asset.priceEuro.toDouble()
         _digits.value = maxAmountToBuy
     }
-
 
     private fun prepareMaxSellout() {
         val maxAmountToSell = portfolio.value?.myAssets?.firstOrNull { myAsset -> myAsset.asset.id == asset.id }?.amount ?: DEFAULT_ZERO

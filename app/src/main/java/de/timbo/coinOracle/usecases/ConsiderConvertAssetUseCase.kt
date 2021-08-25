@@ -36,7 +36,7 @@ class ConsiderConvertAssetUseCase : BaseUseCase() {
             }
         }
     }
-    
+
     private suspend fun sellAssets(assetsToSell: List<MyAsset>) {
         assetsToSell.forEach { myAsset ->
             sellAssetUseCase.call(myAsset.asset, myAsset.amount)

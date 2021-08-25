@@ -3,7 +3,7 @@ package de.timbo.coinOracle.usecases
 import de.timbo.coinOracle.repositories.AssetsRepository
 import org.koin.core.component.inject
 
-class GetAssetHistoryUseCase : BaseUseCase(){
+class GetAssetHistoryUseCase : BaseUseCase() {
 
     private val assetsRepository by inject<AssetsRepository>()
 

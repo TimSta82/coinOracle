@@ -3,7 +3,7 @@ package de.timbo.coinOracle.usecases
 import de.timbo.coinOracle.repositories.CorrelationRepository
 import org.koin.core.component.inject
 
-class DeleteOutdatedCorrelationsUseCase: BaseUseCase() {
+class DeleteOutdatedCorrelationsUseCase : BaseUseCase() {
 
     private val correlationRepository by inject<CorrelationRepository>()
 
