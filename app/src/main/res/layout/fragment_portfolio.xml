@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/portfolio_background">
+    android:background="@color/portfolio_background"
+    app:layoutDescription="@xml/fragment_portfolio_scene">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/portfolio_background_header_Iv"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/expanded_height"
+        android:maxHeight="@dimen/expanded_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/patrick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/portfolio_budget_Tv"
         style="@style/Text.ListItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/one_grid_unit"
+        android:layout_marginTop="@dimen/two_grid_unit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +42,25 @@
         app:layout_constraintTop_toBottomOf="@id/portfolio_budget_Tv"
         tools:text="12323€" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/portfolio_search_asset_Til"
+        style="@style/InputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/one_grid_unit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/portfolio_cumulated_value_Tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/portfolio_search_asset_Et"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:hint="asset name ..." />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/portfolio_assets_Rv"
         android:layout_width="0dp"
@@ -39,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portfolio_cumulated_value_Tv"
+        app:layout_constraintTop_toBottomOf="@+id/portfolio_search_asset_Til"
         tools:listitem="@layout/list_item_portfolio_myasset" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:motionInterpolator="easeInOut">
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/portfolio_budget_Tv" />
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/portfolio_cumulated_value_Tv" />
+        </KeyFrameSet>
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:touchAnchorId="@+id/portfolio_assets_Rv" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/portfolio_background_header_Iv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/expanded_height"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/portfolio_search_asset_Til"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            motion:layout_constraintBottom_toBottomOf="@id/portfolio_background_header_Iv"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint
+            android:id="@+id/portfolio_background_header_Iv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/collapsed_min_height"
+            android:alpha="0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/portfolio_search_asset_Til"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_height"
+            motion:layout_constraintBottom_toBottomOf="@id/portfolio_background_header_Iv"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+</MotionScene>
