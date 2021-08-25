@@ -57,8 +57,8 @@ class TradeAssetFragment : BaseFragment(R.layout.fragment_trade_asset) {
         viewModel.digits.observe(viewLifecycleOwner, ::setDigits)
     }
 
-    private fun setDigits(digits: Double) {
-        binding.tradeAssetAmountEt.setText(digits.toString())
+    private fun setDigits(digits: Double?) {
+        binding.tradeAssetAmountEt.setText(digits.toString() ?: "0.0")
     }
 
     private fun initViewWithTradingType(tradingType: TradingType) {
@@ -78,14 +78,17 @@ class TradeAssetFragment : BaseFragment(R.layout.fragment_trade_asset) {
         binding.tradeAssetPreviewFlipper.findViewById<MaterialCardView>(R.id.trade_asset_preview_container_front).strokeWidth = 8
     }
 
-    private fun setPreviewValues(tradePreview: TradePreview) {
-        tradePreview.let {
+    private fun setPreviewValues(tradePreview: TradePreview?) {
+        tradePreview?.let {
             binding.tradeAssetPreviewFlipper.isVisible = true
             binding.tradeAssetPreviewFlipper.findViewById<TextView>(R.id.trade_asset_preview_amount_Tv).text = "neue Anzahl: ${it.newAmount}"
             binding.tradeAssetPreviewFlipper.findViewById<TextView>(R.id.trade_asset_preview_cost_Tv).text = "kosten: ${it.totalPrice}€"
             binding.tradeAssetPreviewFlipper.findViewById<TextView>(R.id.trade_asset_preview_new_saldo_Tv).text = "neuer Saldo: ${it.newBudget}€"
             binding.tradeAssetPreviewFlipper.findViewById<TextView>(R.id.trade_asset_preview_new_total_amount_Tv).text = "neuer Bestand: ${it.totalAmount}"
+        } ?: run {
+            binding.tradeAssetPreviewFlipper.isVisible = false
         }
+
     }
 
     private fun setCurrentAssetAmount(amount: Double) {

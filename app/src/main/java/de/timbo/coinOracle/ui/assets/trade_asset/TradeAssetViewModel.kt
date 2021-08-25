@@ -36,8 +36,8 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
     private val _currentAssetAmount = MutableLiveData<Double>()
     val currentAssetAmount: LiveData<Double> = _currentAssetAmount
 
-    private val _previewValues = MutableLiveData<TradePreview>()
-    val previewValues: LiveData<TradePreview> = _previewValues
+    private val _previewValues = MutableLiveData<TradePreview?>()
+    val previewValues: LiveData<TradePreview?> = _previewValues
 
     private val _onNotEnoughBudget = SingleLiveEvent<Boolean>()
     val onNotEnoughBudget: LiveData<Boolean> = _onNotEnoughBudget
@@ -54,8 +54,8 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
     private val _onNavigateUp = SingleLiveEvent<Any>()
     val onNavigateUp: LiveData<Any> = _onNavigateUp
 
-    private val _digits = SingleLiveEvent<Double>()
-    val digits : LiveData<Double> = _digits
+    private val _digits = SingleLiveEvent<Double?>()
+    val digits : LiveData<Double?> = _digits
 
     init {
         _currentAsset.value = asset
@@ -63,31 +63,32 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
     }
 
     fun calculatePreviewValues(amount: Editable?) {
-//        if (amount.isNullOrEmpty()) return
-        amount?.let { amount1 ->
-            when (type) {
-                TradingType.BUY -> calculateBuyPreview(amount1)
-                TradingType.SELL -> calculateSellPreview(amount1)
-                TradingType.CONVERT -> calculateConvertPreview(amount1)
-            }
+        if (amount.isNullOrEmpty()) {
+            _previewValues.value = null
+            return
         }
+        val a = amount.toString()
+            when (type) {
+                TradingType.BUY -> calculateBuyPreview(a)
+                TradingType.SELL -> calculateSellPreview(a)
+                TradingType.CONVERT -> calculateConvertPreview(a)
+            }
     }
 
-    private fun calculateConvertPreview(amount: Editable?) {
+    private fun calculateConvertPreview(amount: String) {
 
 
     }
 
-    private fun calculateSellPreview(amount: Editable?) {
-        amount?.let { amount1 ->
-            val amountAsDouble = amount1.toString().toDouble()
-            val priceTotal = (amountAsDouble) * asset.priceEuro.toDouble()
+    private fun calculateSellPreview(amount: String) {
+        amount.toDouble().let { amountAsDouble ->
+            val priceTotal = amountAsDouble * asset.priceEuro.toDouble()
             val currentAssetAmount = _currentAssetAmount.value ?: DEFAULT_ZERO
             val totalAmount = currentAssetAmount - amountAsDouble
             val budget = portfolio.value?.budget ?: DEFAULT_ZERO
             _onNotEnoughAssetAmount.value = totalAmount < DEFAULT_ZERO
             _previewValues.value = TradePreview(
-                newAmount = amount1.toString(),
+                newAmount = amountAsDouble.toString(),
                 singlePrice = asset.priceEuro,
                 totalPrice = priceTotal,
                 totalAmount = currentAssetAmount - amountAsDouble,
@@ -97,16 +98,15 @@ class TradeAssetViewModel(private val asset: Asset, private val type: TradingTyp
         }
     }
 
-    private fun calculateBuyPreview(amount: Editable?) {
-        amount?.let { amount1 ->
-            val amountAsDouble = amount1.toString().toDouble()
-            val priceTotal = (amountAsDouble) * asset.priceEuro.toDouble()
+    private fun calculateBuyPreview(amount: String) {
+        amount.toDouble().let { amountAsDouble ->
+            val priceTotal = amountAsDouble * asset.priceEuro.toDouble()
             val currentAssetAmount = _currentAssetAmount.value ?: DEFAULT_ZERO
             val budget = portfolio.value?.budget ?: DEFAULT_ZERO
             _onNotEnoughAssetAmount.value = amountAsDouble > currentAssetAmount
             _onNotEnoughBudget.value = priceTotal > budget
             _previewValues.value = TradePreview(
-                newAmount = amount1.toString(),
+                newAmount = amountAsDouble.toString(),
                 singlePrice = asset.priceEuro,
                 totalPrice = priceTotal,
                 totalAmount = currentAssetAmount + amountAsDouble,
