@@ -96,7 +96,7 @@ class MainViewModel : ViewModel(), KoinComponent {
             when (val result = getAssetsUseCase.call(euro)) {
                 is BaseUseCase.UseCaseResult.Success -> {
                     result.resultObject.let { assets ->
-//                        calculateCorrelation(assets)
+                        calculateCorrelation(assets)
                         saveAssetsUseCase.call(assets)
                     }
                 }
