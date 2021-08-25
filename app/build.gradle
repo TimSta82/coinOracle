@@ -10,7 +10,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "de.timbo.coinOracle"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode System.getenv("CI_PIPELINE_ID") as Integer ?: 1
         versionName "1.0"
@@ -217,4 +217,5 @@ dependencies {
     // FANCY STUFF
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.sparrow007:carouselrecyclerview:1.2.1'
+    implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:3.0.0'
 }

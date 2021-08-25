@@ -13,13 +13,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-319" />
-                            <option name="y" value="-408" />
+                            <option name="x" value="233" />
+                            <option name="y" value="-446" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_assetDetailsFragment_to_assetsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_assetDetailsFragment_to_tradeAssetFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -55,21 +60,30 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="762" />
-                            <option name="y" value="22" />
+                            <option name="x" value="247" />
+                            <option name="y" value="18" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="portfolioFragment2">
+                  <entry key="portfolioFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="497" />
-                            <option name="y" value="20" />
+                            <option name="x" value="745" />
+                            <option name="y" value="28" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_portfolioFragment_to_assetDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -86,13 +100,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="tradingFragment2">
+                  <entry key="tradeAssetFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="258" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-136" />
+                            <option name="y" value="-785" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="tradingFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="510" />
+                            <option name="y" value="22" />
                           </Point>
                         </option>
                       </LayoutPositions>

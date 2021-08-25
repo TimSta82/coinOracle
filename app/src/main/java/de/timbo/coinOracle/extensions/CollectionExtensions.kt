@@ -24,3 +24,9 @@ fun Date.formatTo(dateFormat: String, timeZone: TimeZone = TimeZone.getDefault()
     formatter.timeZone = timeZone
     return formatter.format(this)
 }
+
+fun Long.convertLongToTime(): String {
+    val date = java.sql.Date(this)
+    val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    return format.format(date)
+}

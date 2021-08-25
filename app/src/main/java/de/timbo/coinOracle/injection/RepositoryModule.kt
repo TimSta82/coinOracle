@@ -1,9 +1,6 @@
 package de.timbo.coinOracle.injection
 
-import de.timbo.coinOracle.repositories.AssetsRepository
-import de.timbo.coinOracle.repositories.CorrelationRepository
-import de.timbo.coinOracle.repositories.CurrencyRepository
-import de.timbo.coinOracle.repositories.PortfolioRepository
+import de.timbo.coinOracle.repositories.*
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -12,4 +9,5 @@ val repositoryModule = module {
     single { CurrencyRepository() }
     single { PortfolioRepository() }
     single { CorrelationRepository() }
+    single { TradeRepository() }
 }

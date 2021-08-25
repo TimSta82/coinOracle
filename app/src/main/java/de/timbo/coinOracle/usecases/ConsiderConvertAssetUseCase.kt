@@ -7,7 +7,7 @@ import de.timbo.coinOracle.model.MyAsset
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
-class ConsiderTradingUseCase : BaseUseCase() {
+class ConsiderConvertAssetUseCase : BaseUseCase() {
 
     private val sellAssetUseCase by inject<SellAssetUseCase>()
     private val buyAssetUseCase by inject<BuyAssetUseCase>()
@@ -34,11 +34,9 @@ class ConsiderTradingUseCase : BaseUseCase() {
                     buyAssetUseCase.call(asset, budgetForEach)
                 }
             }
-        } else {
-            return
         }
     }
-    
+
     private suspend fun sellAssets(assetsToSell: List<MyAsset>) {
         assetsToSell.forEach { myAsset ->
             sellAssetUseCase.call(myAsset.asset, myAsset.amount)

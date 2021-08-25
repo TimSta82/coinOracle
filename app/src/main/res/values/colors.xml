@@ -10,9 +10,15 @@
     <color name="correlation_winner">#16D820</color>
     <color name="settings_background">#f8ac12</color>
     <color name="trading_background">#2BB0E4</color>
+    <color name="trading_sold">#0E6352</color>
+    <color name="trading_bought">#D5159F</color>
+
     <color name="portfolio_background">#016187</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="red">#D5002B</color>
+    <color name="green">#16D820</color>
     <color name="black">#000000</color>
+    <color name="black_40">#66000000</color>
     <color name="grey">#2f2f2f</color>
 </resources>

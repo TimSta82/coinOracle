@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/one_grid_unit">
+
+    <TextView
+        android:id="@+id/trade_asset_portfolio_Tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Geld:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/trade_asset_name_Tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Cardano"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trade_asset_portfolio_Tv" />
+
+    <TextView
+        android:id="@+id/trade_asset_current_price_Tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="1.48€"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trade_asset_name_Tv" />
+
+    <TextView
+        android:id="@+id/trade_asset_in_stock_Tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="135"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trade_asset_current_price_Tv" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/InputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/two_grid_unit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trade_asset_in_stock_Tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/trade_asset_amount_Et"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="0.0"
+            android:imeOptions="actionDone"
+            android:inputType="numberDecimal"
+            tools:background="@drawable/background_edittext_white_rounded" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_asset_max_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/trade_asset_max_button_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <com.wajahatkarim3.easyflipview.EasyFlipView
+        android:id="@+id/trade_asset_preview_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:autoFlipBack="false"
+        app:flipDuration="400"
+        app:flipEnabled="true"
+        app:flipFrom="right"
+        app:flipOnTouch="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/trade_asset_confirm_Btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trade_asset_max_Btn"
+        app:flipType="horizontal">
+
+        <include layout="@layout/trade_asset_preview_back_incl" />
+
+        <include layout="@layout/trade_asset_preview_front_incl" />
+
+    </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+<!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:id="@+id/trade_asset_preview_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:elevation="@dimen/half_grid_unit"-->
+<!--        android:visibility="gone"-->
+<!--        app:cardCornerRadius="@dimen/half_grid_unit"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/trade_asset_confirm_Btn"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/trade_asset_max_Btn"-->
+<!--        tools:visibility="visible">-->
+
+
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    app:layout_constraintBottom_toTopOf="@+id/trade_asset_confirm_Btn"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/trade_asset_max_Btn">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/trade_asset_preview_header_Tv"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/two_grid_unit"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="Vorschau" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/trade_asset_preview_amount_Tv"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/two_grid_unit"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="neuer bestand" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/trade_asset_preview_cost_Tv"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/two_grid_unit"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="kosten" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/trade_asset_preview_new_saldo_Tv"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/two_grid_unit"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="neuer Saldo" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/trade_asset_preview_new_total_amount_Tv"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/two_grid_unit"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="neuer Bestand" />-->
+
+<!--                </LinearLayout>-->
+
+<!--    </com.google.android.material.card.MaterialCardView>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_asset_confirm_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/trade_asset_confirm_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

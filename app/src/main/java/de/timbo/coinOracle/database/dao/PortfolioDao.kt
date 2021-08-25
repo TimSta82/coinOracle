@@ -13,4 +13,7 @@ abstract class PortfolioDao : BaseDao<PortfolioEntity>() {
 
     @Query("SELECT * FROM PortfolioEntity")
     abstract suspend fun getPortfolio(): PortfolioEntity
+
+    @Query("DELETE FROM PortfolioEntity")
+    abstract suspend fun deleteAll()
 }

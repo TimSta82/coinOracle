@@ -24,4 +24,19 @@ data class CurrencyPairResponseDto(
     val targetCode: String?,
     @SerializedName("conversion_rate")
     val conversionRate: Double?
-)
+) {
+    companion object {
+        fun getDefaultCurrency() = CurrencyPairResponseDto(
+            result = "",
+            documentation = "",
+            termsOfUse = "",
+            timeLastUpdateUnix = -1,
+            timeLastUpdateUtc = "",
+            timeNextUpdateUtc = "",
+            timeNextUpdateUnix = -1,
+            baseCode = "",
+            targetCode = "",
+            conversionRate = -1.0
+        )
+    }
+}

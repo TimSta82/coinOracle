@@ -3,13 +3,8 @@ package de.timbo.coinOracle.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.timbo.coinOracle.R
 import de.timbo.coinOracle.database.KeyValueStore
-import de.timbo.coinOracle.extensions.launch
-import de.timbo.coinOracle.usecases.BaseUseCase.UseCaseResult.Failure
-import de.timbo.coinOracle.usecases.BaseUseCase.UseCaseResult.Success
 import de.timbo.coinOracle.utils.Logger
-import de.timbo.coinOracle.utils.SingleLiveEvent
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

@@ -6,4 +6,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="correlations_not_available">No correlations available yet...</string>
+    <string name="asset_detail_trade_button_text">Trade</string>
+    <string name="trade_bottom_menu_buy_button_text">Kaufen</string>
+    <string name="trade_bottom_menu_sell_button_text">Verkaufen</string>
+    <string name="trade_bottom_menu_convert_button_text">Konvertieren</string>
+    <string name="trade_asset_confirm_button_text">Bestätigen</string>
+    <string name="trade_asset_max_button_text">Maximum</string>
+
 </resources>

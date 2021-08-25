@@ -13,7 +13,7 @@ val useCaseModule = module {
     single { WatchAssetsFromDbUseCase() }
     single { GetAssetsByIdsFromDbUseCase() }
 
-    single { ConsiderTradingUseCase() }
+    single { ConsiderConvertAssetUseCase() }
     single { BuyAssetUseCase() }
     single { SellAssetUseCase() }
     single { SavePortfolioUseCase() }
@@ -24,4 +24,9 @@ val useCaseModule = module {
     single { CalculateAssetsAntiCorrelationUseCase() }
     single { WatchCorrelationsFromDbUseCase() }
     single { DeleteOutdatedCorrelationsUseCase() }
+
+    single { SaveTradeUseCase() }
+    single { WatchTradesUseCase() }
+    single { ConsiderUseCase() }
+    single { ResetEverythingUseCase() }
 }

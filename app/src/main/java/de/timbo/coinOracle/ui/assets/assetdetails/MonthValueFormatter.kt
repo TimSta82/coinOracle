@@ -3,7 +3,7 @@ package de.timbo.coinOracle.ui.assets.assetdetails
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.ValueFormatter
 
-class MonthValueFormatter: ValueFormatter() {
+class MonthValueFormatter : ValueFormatter() {
 
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         return when (value) {

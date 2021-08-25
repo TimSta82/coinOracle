@@ -35,6 +35,13 @@ val dataModule = module {
     }
     single { get<CorrelationDb>().correlationDao() }
 
+    single {
+        Room.databaseBuilder(androidContext(), TradesDb::class.java, TradesDb.TRADES_DB_NAME)
+            .fallbackToDestructiveMigration() // TODO: REMOVE DESTRUCTIVE FALLBACK BEFORE SHIPPING TO PROD!!!
+            .build()
+    }
+    single { get<TradesDb>().tradesDao() }
+
     single { KeyValueStore(androidContext()) }
     single { KeyValueStoreEncrypted(androidContext()) }
 }

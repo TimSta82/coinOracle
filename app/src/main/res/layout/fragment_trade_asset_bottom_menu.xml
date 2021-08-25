@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_bottom_menu_gradient"
+    android:orientation="vertical"
+    android:padding="@dimen/one_grid_unit">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_bottom_menu_buy_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/trade_bottom_menu_buy_button_text" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_bottom_menu_sell_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/trade_bottom_menu_sell_button_text" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trade_bottom_menu_convert_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/trade_bottom_menu_convert_button_text" />
+
+</LinearLayout>
