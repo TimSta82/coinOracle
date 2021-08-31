@@ -6,15 +6,26 @@
     android:layout_height="match_parent"
     android:background="@color/trading_background">
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/trading_Sw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/one_grid_unit"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        android:theme="@style/BrandedSwitch.control"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trading_Rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/one_grid_unit"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_item_trade"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/trading_Sw"
+        tools:listitem="@layout/list_item_trade" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

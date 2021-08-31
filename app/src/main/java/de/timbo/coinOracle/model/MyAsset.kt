@@ -1,6 +1,7 @@
 package de.timbo.coinOracle.model
 
 import android.os.Parcelable
+import de.timbo.coinOracle.extensions.roundOffDecimal
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

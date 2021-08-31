@@ -44,9 +44,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_grid_unit"
-            app:layout_constraintStart_toStartOf="@+id/item_portfolio_asset_symbol_Tv"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_symbol_Tv"
-            tools:text="123€" />
+            tools:text="CER: 123€" />
+
+        <TextView
+            android:id="@+id/item_portfolio_asset_purchase_value_Tv"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_grid_unit"
+            app:layout_constraintEnd_toEndOf="@+id/item_portfolio_asset_title_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_current_asset_value_Tv"
+            tools:text="PP: 123€" />
 
         <TextView
             android:id="@+id/item_portfolio_asset_amount_Tv"
@@ -55,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_grid_unit"
             app:layout_constraintStart_toStartOf="@+id/item_portfolio_asset_symbol_Tv"
-            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_current_asset_value_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_symbol_Tv"
             tools:text="Amount: 35" />
 
         <TextView
@@ -74,8 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_grid_unit"
-            app:layout_constraintStart_toStartOf="@+id/item_portfolio_asset_amount_Tv"
-            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_cumulated_value_Tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_purchase_value_Tv"
             tools:text="profit: 123213€" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

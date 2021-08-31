@@ -19,6 +19,7 @@ class TradingOverviewFragment : BaseFragment(R.layout.fragment_trading_overview)
         super.onViewCreated(view, savedInstanceState)
 
         setObservers()
+        // TODO implement switch
     }
 
     private fun setObservers() {

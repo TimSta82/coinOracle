@@ -9,7 +9,7 @@ data class PortfolioWithCurrentAssetPrices(
     fun getCumulatedValueOfOwnedAssets(): Double {
         var cumulatedValue = 0.000
         portfolioEntity.myAssets.forEach { myAsset ->
-            val currentAsset = currentAssets.find { myAsset.asset.id == it.id }
+            val currentAsset = currentAssets.find { currentAsset -> myAsset.asset.id == currentAsset.id }
             currentAsset?.let { asset ->
                 cumulatedValue += myAsset.amount * asset.priceEuro.toDouble()
             }
