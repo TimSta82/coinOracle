@@ -6,14 +6,51 @@
     android:layout_height="match_parent"
     android:background="@color/trading_background">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/trading_Sw"
+    <CheckBox
+        android:id="@+id/all_Rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/one_grid_unit"
-        android:layout_marginTop="@dimen/one_grid_unit"
-        android:theme="@style/BrandedSwitch.control"
+        android:checked="true"
+        android:text="all"
+        app:layout_constraintEnd_toStartOf="@id/purchase_Rb"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/purchase_Rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="purchased"
+        app:layout_constraintEnd_toStartOf="@id/sold_Rb"
+        app:layout_constraintStart_toEndOf="@+id/all_Rb"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/sold_Rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sold"
+        app:layout_constraintEnd_toStartOf="@id/asc_Rb"
+        app:layout_constraintStart_toEndOf="@+id/purchase_Rb"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/asc_Rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="ASC"
+        app:layout_constraintEnd_toStartOf="@id/desc_Rb"
+        app:layout_constraintStart_toEndOf="@+id/sold_Rb"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/desc_Rb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DESC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/asc_Rb"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trading_Sw"
+        app:layout_constraintTop_toBottomOf="@+id/all_Rb"
         tools:listitem="@layout/list_item_trade" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
