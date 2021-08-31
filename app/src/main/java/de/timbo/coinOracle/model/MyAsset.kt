@@ -18,4 +18,21 @@ data class MyAsset(
         purchasePriceUsd = asset.priceUsd,
         purchasePriceEur = asset.priceEuro
     )
+
+    fun getPurchaseValue(currencyType: CurrencyType) = when (currencyType) {
+        CurrencyType.DOLLAR -> amount * purchasePriceUsd.toDouble()
+        CurrencyType.EURO -> amount * purchasePriceEur.toDouble()
+    }
+
+    fun getProfit(currentAsset: Asset, currencyType: CurrencyType) : Double {
+        val currentAssetValue = when (currencyType) {
+            CurrencyType.DOLLAR -> amount * currentAsset.priceUsd.toDouble()
+            CurrencyType.EURO -> amount * currentAsset.priceEuro.toDouble()
+        }
+        return currentAssetValue - getPurchaseValue(currencyType)
+    }
+}
+
+enum class CurrencyType {
+    EURO, DOLLAR
 }

@@ -68,6 +68,16 @@
             app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_amount_Tv"
             tools:text="total value: 123213€" />
 
+        <TextView
+            android:id="@+id/item_portfolio_asset_profit_value_Tv"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_grid_unit"
+            app:layout_constraintStart_toStartOf="@+id/item_portfolio_asset_amount_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/item_portfolio_asset_cumulated_value_Tv"
+            tools:text="profit: 123213€" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

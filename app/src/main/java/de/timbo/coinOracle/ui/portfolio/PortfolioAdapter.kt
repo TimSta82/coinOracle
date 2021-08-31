@@ -3,8 +3,11 @@ package de.timbo.coinOracle.ui.portfolio
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import de.timbo.coinOracle.R
 import de.timbo.coinOracle.databinding.ListItemPortfolioMyassetBinding
+import de.timbo.coinOracle.extensions.getColorStateListOneColor
 import de.timbo.coinOracle.model.Asset
+import de.timbo.coinOracle.model.CurrencyType
 import de.timbo.coinOracle.model.MyAsset
 import de.timbo.coinOracle.model.PortfolioWithCurrentAssetPrices
 
@@ -23,19 +26,22 @@ class PortfolioAdapter(private val portfolioWithCurrentAssetPrices: PortfolioWit
 
     inner class PortfolioViewHolder(private val binding: ListItemPortfolioMyassetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(myAsset: MyAsset) {
-            val currentAsset = getCurrentAssetPrice(myAsset)
+            val currentAsset = getCurrentAsset(myAsset)
             binding.itemPortfolioAssetSymbolTv.text = myAsset.asset.symbol
             binding.itemPortfolioAssetTitleTv.text = myAsset.asset.name
             binding.itemPortfolioCurrentAssetValueTv.text = "Current price: ${currentAsset.priceEuro}€"
             binding.itemPortfolioAssetAmountTv.text = "Amount: ${myAsset.amount}"
             binding.itemPortfolioAssetCumulatedValueTv.text = "total value: ${(myAsset.amount * currentAsset.priceEuro.toDouble())}€"
+            val profit = myAsset.getProfit(currentAsset, CurrencyType.EURO)
+            binding.itemPortfolioAssetProfitValueTv.setTextColor(itemView.context.getColorStateListOneColor(if (profit > 0) R.color.green else R.color.red))
+            binding.itemPortfolioAssetProfitValueTv.text = "profit: ${myAsset.getProfit(currentAsset, CurrencyType.EURO)}" // TODO implement currency switch
             binding.root.setOnClickListener {
                 onAssetClick(myAsset)
             }
         }
     }
 
-    private fun getCurrentAssetPrice(myAsset: MyAsset): Asset {
+    private fun getCurrentAsset(myAsset: MyAsset): Asset {
         val currentAsset = portfolioWithCurrentAssetPrices.currentAssets.find { currentAsset -> currentAsset.id == myAsset.asset.id }
         return currentAsset ?: myAsset.asset
     }
