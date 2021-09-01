@@ -10,7 +10,14 @@ import de.timbo.coinOracle.extensions.convertLongToTime
 import de.timbo.coinOracle.extensions.getColorStateListOneColor
 import de.timbo.coinOracle.extensions.roundOffDecimal
 
-class TradingOverviewAdapter(private val trades: List<TradeEntity>, private val onTradeClick: (TradeEntity) -> Unit) : RecyclerView.Adapter<TradingOverviewAdapter.TradingViewHolder>() {
+class TradingOverviewAdapter(private val onTradeClick: (TradeEntity) -> Unit) : RecyclerView.Adapter<TradingOverviewAdapter.TradingViewHolder>() {
+
+    private var trades: List<TradeEntity> = emptyList()
+
+    fun setTrades(trades: List<TradeEntity>) {
+        this.trades = trades
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TradingViewHolder {
         return TradingViewHolder(ListItemTradeBinding.inflate(LayoutInflater.from(parent.context), parent, false))

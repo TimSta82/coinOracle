@@ -7,22 +7,12 @@
     android:background="@color/trading_background">
 
     <CheckBox
-        android:id="@+id/all_Rb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="all"
-        app:layout_constraintEnd_toStartOf="@id/purchase_Rb"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
         android:id="@+id/purchase_Rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="purchased"
         app:layout_constraintEnd_toStartOf="@id/sold_Rb"
-        app:layout_constraintStart_toEndOf="@+id/all_Rb"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
@@ -38,7 +28,6 @@
         android:id="@+id/asc_Rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
         android:text="ASC"
         app:layout_constraintEnd_toStartOf="@id/desc_Rb"
         app:layout_constraintStart_toEndOf="@+id/sold_Rb"
@@ -57,12 +46,11 @@
         android:id="@+id/trading_Rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/one_grid_unit"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/all_Rb"
+        app:layout_constraintTop_toBottomOf="@+id/purchase_Rb"
         tools:listitem="@layout/list_item_trade" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,17 +12,30 @@ class TradingOverviewViewModel : ViewModel(), KoinComponent {
 
     val trades: LiveData<List<TradeEntity>> = watchTradesUseCase.call().asLiveData(viewModelScope.coroutineContext)
 
-    private val _filterOptions = MutableLiveData<List<FilterOption>>()
-    val filterOptions : LiveData<List<FilterOption>> = _filterOptions
+    private val _filteredTrades = MutableLiveData<List<TradeEntity>>()
+    val filteredTrades: LiveData<List<TradeEntity>> = _filteredTrades
 
-    var filterList = mutableListOf<FilterOption>(FilterOption.ALL, FilterOption.ASC)
+    private val _sortingOrder = MutableLiveData<SortingOrder>()
+    val sortingOrder: LiveData<SortingOrder> = _sortingOrder
 
-    fun applyFilter(filterOption: FilterOption) {
-        if (filterList.contains(filterOption)) filterList.remove(filterOption) else filterList.add(filterOption)
-        _filterOptions.value = filterList
+    fun applyFilterOption(filterOption: FilterOption) {
+        _filteredTrades.value = when (filterOption) {
+            FilterOption.PURCHASED -> trades.value?.filter { tradeEntity -> tradeEntity.isSold.not() } ?: emptyList()
+            FilterOption.SOLD -> trades.value?.filter { tradeEntity -> tradeEntity.isSold } ?: emptyList()
+            else -> trades.value
+        }
     }
+
+    fun applySortingOrder(sortingOrder: SortingOrder) {
+        _sortingOrder.value = sortingOrder
+    }
+
 }
 
 enum class FilterOption {
-    ALL, PURCHASED, SOLD, ASC, DESC
+    PURCHASED, SOLD, NONE
+}
+
+enum class SortingOrder {
+    ASC, DESC, NONE
 }

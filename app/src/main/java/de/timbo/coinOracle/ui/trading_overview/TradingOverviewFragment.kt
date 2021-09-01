@@ -8,7 +8,6 @@ import de.timbo.coinOracle.R
 import de.timbo.coinOracle.database.model.TradeEntity
 import de.timbo.coinOracle.databinding.FragmentTradingOverviewBinding
 import de.timbo.coinOracle.ui.BaseFragment
-import de.timbo.coinOracle.utils.Logger
 import de.timbo.coinOracle.utils.viewBinding
 
 class TradingOverviewFragment : BaseFragment(R.layout.fragment_trading_overview) {
@@ -16,61 +15,55 @@ class TradingOverviewFragment : BaseFragment(R.layout.fragment_trading_overview)
     private val viewModel by viewModels<TradingOverviewViewModel>()
     private val binding by viewBinding(FragmentTradingOverviewBinding::bind)
 
+    private val tradesAdapter by lazy { TradingOverviewAdapter(::onTradeClicked) }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setObservers()
+        initRecycler()
         // TODO implement switch
         setRadioButtonClicklisteners()
     }
 
+    private fun initRecycler() {
+        binding.tradingRv.adapter = tradesAdapter
+    }
+
     private fun setRadioButtonClicklisteners() {
-        binding.allRb.setOnCheckedChangeListener { _, isChecked ->
-            binding.allRb.isChecked = isChecked
-            if (isChecked) {
-                binding.purchaseRb.isChecked = isChecked.not()
-                binding.soldRb.isChecked = isChecked.not()
-            }
-            viewModel.applyFilter(FilterOption.ALL)
-        }
         binding.purchaseRb.setOnCheckedChangeListener { _, isChecked ->
             binding.purchaseRb.isChecked = isChecked
-            if (isChecked) {
-                binding.allRb.isChecked = isChecked.not()
-                binding.soldRb.isChecked = isChecked.not()
-            }
-            viewModel.applyFilter(FilterOption.PURCHASED)
+            if (isChecked) binding.soldRb.isChecked = isChecked.not()
+            viewModel.applyFilterOption(if (isChecked && binding.soldRb.isChecked.not()) FilterOption.PURCHASED else FilterOption.NONE)
         }
         binding.soldRb.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.allRb.isChecked = isChecked.not()
-                binding.purchaseRb.isChecked = isChecked.not()
-            }
             binding.soldRb.isChecked = isChecked
-            viewModel.applyFilter(FilterOption.SOLD)
+            if (isChecked) binding.purchaseRb.isChecked = isChecked.not()
+            viewModel.applyFilterOption(if (isChecked && binding.purchaseRb.isChecked.not()) FilterOption.SOLD else FilterOption.NONE)
+
         }
         binding.ascRb.setOnCheckedChangeListener { _, isChecked ->
             binding.ascRb.isChecked = isChecked
             if (isChecked) binding.descRb.isChecked = isChecked.not()
-            viewModel.applyFilter(FilterOption.ASC)
+            viewModel.applySortingOrder(SortingOrder.ASC)
         }
         binding.descRb.setOnCheckedChangeListener { _, isChecked ->
             binding.descRb.isChecked = isChecked
             if (isChecked) binding.ascRb.isChecked = isChecked.not()
-            viewModel.applyFilter(FilterOption.DESC)
+            viewModel.applySortingOrder(SortingOrder.DESC)
         }
     }
 
     private fun setObservers() {
         viewModel.trades.observe(viewLifecycleOwner) { trades -> setData(trades) }
-        viewModel.filterOptions.observe(viewLifecycleOwner, ::setFilter)
-    }
-
-    private fun setFilter(list: List<FilterOption>) {
-        Logger.debug("filterList: $list")
+        viewModel.filteredTrades.observe(viewLifecycleOwner, ::setData)
     }
 
     private fun setData(trades: List<TradeEntity>) {
-        binding.tradingRv.adapter = TradingOverviewAdapter(trades) { Toast.makeText(requireContext(), it.assetId, Toast.LENGTH_SHORT).show() }
+        tradesAdapter.setTrades(trades)
+    }
+
+    private fun onTradeClicked(tradeEntity: TradeEntity) {
+        Toast.makeText(requireContext(), tradeEntity.assetId, Toast.LENGTH_SHORT).show()
     }
 }
