@@ -16,6 +16,11 @@
         <item name="fontFamily">@font/ledger</item>
     </style>
 
+    <style name="Text.Black">
+        <item name="fontFamily">@font/ledger</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="Text.ListItem">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
@@ -39,7 +44,7 @@
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="android:maxLines">1</item>
-        <item name="android:inputType">numberDecimal</item>
+        <item name="android:inputType">text</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
         <item name="android:textColorHint">@color/black_40</item>
     </style>

@@ -55,15 +55,15 @@ class TradingOverviewFragment : BaseFragment(R.layout.fragment_trading_overview)
     }
 
     private fun setObservers() {
-        viewModel.trades.observe(viewLifecycleOwner) { trades -> setData(trades) }
+        viewModel.tradesWithCurrentPrice.observe(viewLifecycleOwner) { trades -> setData(trades) }
         viewModel.filteredTrades.observe(viewLifecycleOwner, ::setData)
     }
 
-    private fun setData(trades: List<TradeEntity>) {
+    private fun setData(trades: List<TradedAssetWithCurrentValue>) {
         tradesAdapter.setTrades(trades)
     }
 
-    private fun onTradeClicked(tradeEntity: TradeEntity) {
-        Toast.makeText(requireContext(), tradeEntity.assetId, Toast.LENGTH_SHORT).show()
+    private fun onTradeClicked(tradedAssetWithCurrentValue: TradedAssetWithCurrentValue) {
+        Toast.makeText(requireContext(), tradedAssetWithCurrentValue.tradeEntity.assetId, Toast.LENGTH_SHORT).show()
     }
 }

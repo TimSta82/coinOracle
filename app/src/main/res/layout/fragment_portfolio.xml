@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/portfolio_budget_Tv"
-        style="@style/Text.ListItem"
+        style="@style/Text.Black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/one_grid_unit"
@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/portfolio_cumulated_value_Tv"
-        style="@style/Text.ListItem"
+        style="@style/Text.Black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/one_grid_unit"
@@ -47,10 +47,11 @@
         style="@style/InputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/one_grid_unit"
+        android:paddingStart="@dimen/one_grid_unit"
+        android:paddingEnd="@dimen/one_grid_unit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/portfolio_cumulated_value_Tv">
+        app:layout_constraintBottom_toBottomOf="@id/portfolio_background_header_Iv"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/portfolio_search_asset_Et"
@@ -70,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portfolio_search_asset_Til"
+        app:layout_constraintTop_toBottomOf="@+id/portfolio_background_header_Iv"
         tools:listitem="@layout/list_item_portfolio_myasset" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

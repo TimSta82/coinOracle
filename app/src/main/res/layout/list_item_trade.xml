@@ -39,14 +39,24 @@
             tools:text="Bitcoin" />
 
         <TextView
-            android:id="@+id/item_trade_asset_value_Tv"
+            android:id="@+id/item_trade_asset_purchase_value_Tv"
             style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_grid_unit"
-            app:layout_constraintStart_toStartOf="@+id/item_trade_symbol_Tv"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_trade_symbol_Tv"
-            tools:text="123€" />
+            tools:text="PP: 123€" />
+
+        <TextView
+            android:id="@+id/item_trade_asset_current_value_Tv"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_grid_unit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_trade_asset_purchase_value_Tv"
+            tools:text="CER: 123€" />
 
         <TextView
             android:id="@+id/item_trade_asset_amount_Tv"
@@ -55,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_grid_unit"
             app:layout_constraintStart_toStartOf="@+id/item_trade_symbol_Tv"
-            app:layout_constraintTop_toBottomOf="@+id/item_trade_asset_value_Tv"
+            app:layout_constraintTop_toBottomOf="@+id/item_trade_symbol_Tv"
             tools:text="Amount: 35" />
 
         <TextView

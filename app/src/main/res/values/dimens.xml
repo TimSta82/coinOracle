@@ -17,8 +17,8 @@
 
     <dimen name="corner_radius">6dp</dimen>
     <dimen name="trade_preview_values_card_height">250dp</dimen>
-    <dimen name="collapsed_min_height">64dp</dimen>
-    <dimen name="expanded_height">200dp</dimen>
+    <dimen name="collapsed_min_height">72dp</dimen>
+    <dimen name="expanded_height">240dp</dimen>
     <dimen name="input_height">56dp</dimen>
 
 </resources>

@@ -98,7 +98,7 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
 
         chart.axisRight.isEnabled = false
 
-        chart.animateXY(2000, 2000)
+//        chart.animateXY(2000, 2000)
 
         chart.invalidate()
     }
@@ -121,17 +121,5 @@ class AssetDetailsFragment : BaseFragment(R.layout.fragment_asset_details) {
         val data = LineData(set1)
 
         binding.assetDetailsChart.data = data
-    }
-
-    private fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        return format.format(date)
-    }
-
-    private fun roundOffDecimal(number: Double): String {
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
-        return df.format(number)
     }
 }

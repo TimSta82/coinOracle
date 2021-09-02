@@ -10,11 +10,11 @@ import de.timbo.coinOracle.extensions.convertLongToTime
 import de.timbo.coinOracle.extensions.getColorStateListOneColor
 import de.timbo.coinOracle.extensions.roundOffDecimal
 
-class TradingOverviewAdapter(private val onTradeClick: (TradeEntity) -> Unit) : RecyclerView.Adapter<TradingOverviewAdapter.TradingViewHolder>() {
+class TradingOverviewAdapter(private val onTradeClick: (TradedAssetWithCurrentValue) -> Unit) : RecyclerView.Adapter<TradingOverviewAdapter.TradingViewHolder>() {
 
-    private var trades: List<TradeEntity> = emptyList()
+    private var trades: List<TradedAssetWithCurrentValue> = emptyList()
 
-    fun setTrades(trades: List<TradeEntity>) {
+    fun setTrades(trades: List<TradedAssetWithCurrentValue>) {
         this.trades = trades
         notifyDataSetChanged()
     }
@@ -30,18 +30,19 @@ class TradingOverviewAdapter(private val onTradeClick: (TradeEntity) -> Unit) : 
     override fun getItemCount() = trades.size
 
     inner class TradingViewHolder(private val binding: ListItemTradeBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(trade: TradeEntity) {
-            trade.isSold.let { isSold ->
+        fun bind(tradedAssetWithCurrentValue: TradedAssetWithCurrentValue) {
+            tradedAssetWithCurrentValue.tradeEntity.isSold.let { isSold ->
                 binding.root.backgroundTintList = itemView.context.getColorStateListOneColor(if (isSold) R.color.trading_sold else R.color.trading_bought)
             }
-            binding.itemTradeSymbolTv.text = trade.assetSymbol
-            binding.itemTradeTitleTv.text = trade.assetId
-            binding.itemTradeAssetValueTv.text = "PP: ${trade.assetValue.toDouble().roundOffDecimal()}€"
-            binding.itemTradeAssetAmountTv.text = "Amount: ${trade.amount}"
-            binding.itemTradeAssetPriceTv.text = "Total price: ${(trade.amount * trade.assetValue.toDouble()).roundOffDecimal()}€"
-            binding.itemTradeDateTv.text = "Date: ${trade.timeStamp.convertLongToTime()}"
+            binding.itemTradeSymbolTv.text = tradedAssetWithCurrentValue.tradeEntity.assetSymbol
+            binding.itemTradeTitleTv.text = tradedAssetWithCurrentValue.tradeEntity.assetId
+            binding.itemTradeAssetPurchaseValueTv.text = "PP: ${tradedAssetWithCurrentValue.tradeEntity.assetValue.toDouble().roundOffDecimal()}€"
+            binding.itemTradeAssetCurrentValueTv.text = "CER: ${tradedAssetWithCurrentValue.assetCurrentValue.priceEuro.toDouble().roundOffDecimal()}€"
+            binding.itemTradeAssetAmountTv.text = "Amount: ${tradedAssetWithCurrentValue.tradeEntity.amount}"
+            binding.itemTradeAssetPriceTv.text = "Total price: ${(tradedAssetWithCurrentValue.tradeEntity.amount * tradedAssetWithCurrentValue.tradeEntity.assetValue.toDouble()).roundOffDecimal()}€"
+            binding.itemTradeDateTv.text = "Date: ${tradedAssetWithCurrentValue.tradeEntity.timeStamp.convertLongToTime()}"
             binding.root.setOnClickListener {
-                onTradeClick(trade)
+                onTradeClick(tradedAssetWithCurrentValue)
             }
         }
     }
