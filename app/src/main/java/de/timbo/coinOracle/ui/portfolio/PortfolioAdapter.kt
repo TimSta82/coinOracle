@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.timbo.coinOracle.R
 import de.timbo.coinOracle.databinding.ListItemPortfolioMyassetBinding
 import de.timbo.coinOracle.extensions.getColorStateListOneColor
+import de.timbo.coinOracle.extensions.getString
 import de.timbo.coinOracle.extensions.roundOffDecimal
 import de.timbo.coinOracle.model.Asset
 import de.timbo.coinOracle.model.CurrencyType
@@ -35,8 +36,9 @@ class PortfolioAdapter(private val portfolioWithCurrentAssetPrices: PortfolioWit
             binding.itemPortfolioAssetAmountTv.text = "Amount: ${myAsset.amount}"
             binding.itemPortfolioAssetCumulatedValueTv.text = "total value: ${(myAsset.amount * currentAsset.priceEuro.toDouble()).roundOffDecimal()}€"
             val profit = myAsset.getProfit(currentAsset, CurrencyType.EURO)
-            binding.itemPortfolioAssetProfitValueTv.setTextColor(itemView.context.getColorStateListOneColor(if (profit > 0) R.color.green else R.color.red))
-            binding.itemPortfolioAssetProfitValueTv.text = "profit: ${profit.roundOffDecimal()}€" // TODO implement currency switch
+            binding.itemPortfolioAssetProfitValueTv.setTextColor(itemView.context.getColorStateListOneColor(if (profit > 0.0) R.color.green else R.color.red))
+            binding.itemPortfolioAssetProfitValueTv.text =
+                getString(if (profit > 0.0) R.string.fragment_portfolio_current_profit else R.string.fragment_portfolio_current_loss, profit.roundOffDecimal())
             binding.root.setOnClickListener {
                 onAssetClick(myAsset)
             }

@@ -23,11 +23,11 @@ class TradingOverviewViewModel : ViewModel(), KoinComponent {
 
     private fun combineStuff(liveData: List<Any?>): List<TradedAssetWithCurrentValue> {
         val trades = if (liveData.first() != null) liveData.first() as List<TradeEntity> else emptyList()
-        val assets = if (liveData.second() != null) liveData.second() as List<Asset> else emptyList()
+        val assetsWithCurrentValue = if (liveData.second() != null) liveData.second() as List<Asset> else emptyList()
         return trades.map { tradeEntity ->
-            val a = assets.filter { asset -> asset.id == tradeEntity.assetId }
-            val b = a.first { asset -> asset.id == tradeEntity.assetId }
-            TradedAssetWithCurrentValue(tradeEntity, assetCurrentValue = AssetCurrentValue(b.id, b.priceUsd, b.priceEuro))
+            val tradedAssetsWithCurrentValue = assetsWithCurrentValue.filter { asset -> asset.id == tradeEntity.assetId }
+            val assetWithCurrentValue = tradedAssetsWithCurrentValue.firstOrNull { asset -> asset.id == tradeEntity.assetId }
+            TradedAssetWithCurrentValue(tradeEntity, assetCurrentValue = AssetCurrentValue(assetWithCurrentValue?.id ?: "", assetWithCurrentValue?.priceUsd ?: "0.0", assetWithCurrentValue?.priceEuro ?: "0.0"))
         }
     }
 

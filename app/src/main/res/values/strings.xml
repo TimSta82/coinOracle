@@ -13,4 +13,7 @@
     <string name="trade_asset_confirm_button_text">Bestätigen</string>
     <string name="trade_asset_max_button_text">Maximum</string>
 
+    <string name="fragment_portfolio_current_profit">Profit: %s€</string>
+    <string name="fragment_portfolio_current_loss">Verlust: %s€</string>
+
 </resources>
